@@ -1,0 +1,51 @@
+# Model The Inventory API As A Resource Server
+# Astrona graded lab. Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-091-lab-010-01"
+  docs:
+    guide: "solution.md"
+    solution: "solution.md"
+    question: "question.md"
+    examQuestion: "question.md"
+    prerequisites: "prerequisites.md"
+
+bootstrap:
+  init:
+    - name: "deploy-keycloak"
+      description: "Deploys Keycloak 26.8.1 and the tester pod, and creates the inventory realm, users, roles and clients"
+      type: "file"
+      source: "bootstrap/01-deploy-keycloak.sh"
+    - name: "ats-091-lab-010-01-setup"
+      description: "Leaves inventory-api with authorization switched off, which is where the task starts"
+      type: "file"
+      source: "bootstrap/02-seed-state.sh"
+
+testing:
+  init:
+    - name: "wait-for-keycloak"
+      description: "Waits until Keycloak answers and kcadm.sh can sign in"
+      type: "file"
+      source: "testing/wait-for-keycloak.sh"
+    - name: "reference-solution"
+      description: "The model a correct learner builds; used by `astrona test`"
+      type: "file"
+      source: "solution/apply.sh"
+
+validation:
+  scripts:
+    - name: "validate-resource-model"
+      description: "Confirms inventory-api is an ENFORCING resource server and items lists view, edit and delete"
+      type: "file"
+      source: "validation/validate-resource-model.sh"
+    - name: "validate-decisions"
+      description: "Confirms the six decisions for alice and bob"
+      type: "file"
+      source: "validation/validate-decisions.sh"
+    - name: "validate-role-based-permissions"
+      description: "Confirms the three permissions exist and use role policies only"
+      type: "file"
+      source: "validation/validate-role-based-permissions.sh"
+
+teardown:
+  keepCluster: false

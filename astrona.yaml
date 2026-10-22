@@ -1,0 +1,276 @@
+# Course manifest for ATS091 - Fine-Grained Authorization Services (Keycloak).
+#
+# One entry per section under `modules:`. Each section lists, in order: its
+# README, then for each module the landing page (course.md), its parts
+# (course-0N-*.md), and right after the part a lab tests, the lab's
+# question.md reading and the `type: lab` entry. The module's summary page
+# comes last. The section capstone closes the section. Playgrounds are not
+# listed: the landing page's playground marker shows them. solution.md is
+# never listed.
+#
+# Every `path:` is relative to this file.
+
+training:
+  id: ATS091
+  title: "Keycloak: Fine-Grained Authorization Services"
+  maturity: draft
+  description: >
+    Training material covering the Fine-Grained Authorization Services domain
+    of the Keycloak training path: why roles in a token are not enough,
+    resource servers, resources, scopes and permissions, decision strategies
+    and the policy enforcement mode, role, user, group, client, regex, time,
+    aggregated and JavaScript policies, asking Keycloak for a decision with
+    the UMA ticket grant, UMA 2.0 permission tickets and the requesting party
+    token, user-managed access, and a policy enforcement point in an API.
+    Each module pairs a layered reader with an ungraded hands-on playground
+    and a graded practice lab. Each section closes with an integration
+    capstone.
+    Written for Keycloak 26.8.1.
+
+  certification:
+    name: Keycloak
+    code: KEYCLOAK
+    provider: Astrona
+    domain: Fine-Grained Authorization Services
+    weight: 15
+
+modules:
+
+  - id: module-intro
+    title: "Introduction"
+    description: >
+      Start here. What this course trains you to do, how it is laid out, how
+      to get your machine ready with the astrona command-line tool, how the
+      content is written and checked, who maintains it, and how to report a
+      mistake.
+
+    content:
+      - type: reading
+        title: Introduction
+        path: sections/intro/README.md
+      - type: reading
+        title: "Welcome To The Course"
+        path: sections/intro/course-01-welcome.md
+      - type: reading
+        title: "Get Your Machine Ready"
+        path: sections/intro/course-02-get-your-machine-ready.md
+      - type: reading
+        title: "How This Course Is Made"
+        path: sections/intro/course-03-how-this-course-is-made.md
+
+  - id: module-010
+    title: "The Authorization Services Model"
+    description: >
+      Why roles in a token are not enough, and how Keycloak models access
+      instead: a resource server with resources, scopes, policies and
+      permissions, decision strategies that combine results, and the policy
+      enforcement mode that decides what happens when nothing matches.
+
+    content:
+      - type: reading
+        title: Section Overview
+        path: sections/section-010/README.md
+
+      - type: reading
+        title: "Protect An API With Keycloak Authorization Services"
+        path: sections/section-010/module-01/course.md
+      - type: reading
+        title: "Why Roles In A Token Are Not Enough"
+        path: sections/section-010/module-01/course-01-why-roles-are-not-enough.md
+      - type: reading
+        title: "Resources, Scopes And Permissions"
+        path: sections/section-010/module-01/course-02-resources-scopes-and-permissions.md
+      - type: reading
+        title: Question
+        path: sections/section-010/module-01/labs/lab-01/question.md
+      - type: lab
+        title: "Model The Inventory API As A Resource Server Lab"
+        path: sections/section-010/module-01/labs/lab-01
+        difficulty: beginner
+        estimated_duration: 25m
+        topic: authorization-model
+        task_kind: build
+        tags: [resource-server, resources, scopes, scope-permission, role-policy, kcadm]
+        learning_goals:
+          - Switch on authorization for a confidential client and create its scopes and resource
+          - Protect each scope with a scope permission that uses a role policy
+          - Prove the model with decision requests for two users
+        resources:
+          - name: "Authorization Services Guide: managing resources and scopes"
+            url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_resource_overview
+          - name: "Authorization Services Guide: managing permissions"
+            url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_permission_overview
+      - type: reading
+        title: "Decision Strategies And The Enforcement Mode"
+        path: sections/section-010/module-01/course-03-decision-strategies-and-enforcement-mode.md
+      - type: reading
+        title: Summary
+        path: sections/section-010/module-01/course-04-summary.md
+
+      - type: reading
+        title: Question
+        path: sections/section-010/capstone/labs/lab-01/question.md
+      - type: lab
+        title: "Close A Resource Server That Allows Too Much Capstone"
+        path: sections/section-010/capstone/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 30m
+        topic: authorization-model
+        task_kind: troubleshooting
+        tags: [enforcement-mode, decision-strategy, scope-permission, resources, decision-request, kcadm]
+        learning_goals:
+          - Find why a viewer may delete items from decision requests and the resource server settings
+          - Fix the enforcement mode and the permission without deleting or recreating it
+          - Prove the fix with granted and denied decisions for the right users
+        resources:
+          - name: "Authorization Services Guide: policy enforcement modes"
+            url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_resource_server_enforcement_mode
+          - name: "Authorization Services Guide: decision strategies"
+            url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_permission_decision_strategy
+
+  - id: module-020
+    title: "Policies And Decisions"
+    description: >
+      The policy types Keycloak offers and when to use each: role, user,
+      group, client, regex, time, aggregated and JavaScript policies, policy
+      logic, and the uma-ticket grant that asks Keycloak for a decision or a
+      list of permissions.
+
+    content:
+      - type: reading
+        title: Section Overview
+        path: sections/section-020/README.md
+
+      - type: reading
+        title: "Write Policies That Decide Access"
+        path: sections/section-020/module-01/course.md
+      - type: reading
+        title: "Role, User, Group, Client And Regex Policies"
+        path: sections/section-020/module-01/course-01-identity-policies.md
+      - type: reading
+        title: "Time Policies And Aggregated Policies"
+        path: sections/section-020/module-01/course-02-time-and-aggregated-policies.md
+      - type: reading
+        title: Question
+        path: sections/section-020/module-01/labs/lab-01/question.md
+      - type: lab
+        title: "Allow Deletes Only For Staff In Business Hours Lab"
+        path: sections/section-020/module-01/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: policies
+        task_kind: build
+        tags: [group-policy, time-policy, aggregated-policy, decision-strategy, scope-permission, kcadm]
+        learning_goals:
+          - Create a group policy and a time policy for business hours
+          - Combine them in an aggregated policy and use it in the delete permission
+          - Prove that a user outside the group is denied at any hour
+        resources:
+          - name: "Authorization Services Guide: time-based policy"
+            url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_policy_time
+          - name: "Authorization Services Guide: aggregated policy"
+            url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_policy_aggregated
+          - name: "Authorization Services Guide: group-based policy"
+            url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_policy_group
+      - type: reading
+        title: "JavaScript Policies"
+        path: sections/section-020/module-01/course-03-javascript-policies.md
+      - type: reading
+        title: "Asking Keycloak For A Decision"
+        path: sections/section-020/module-01/course-04-asking-keycloak-for-a-decision.md
+      - type: reading
+        title: Summary
+        path: sections/section-020/module-01/course-05-summary.md
+
+      - type: reading
+        title: Question
+        path: sections/section-020/capstone/labs/lab-01/question.md
+      - type: lab
+        title: "Fix A Policy Set That Decides For The Wrong Users Capstone"
+        path: sections/section-020/capstone/labs/lab-01
+        difficulty: advanced
+        estimated_duration: 35m
+        topic: policies
+        task_kind: troubleshooting
+        tags: [regex-policy, group-policy, aggregated-policy, policy-logic, decision-strategy, decision-request]
+        learning_goals:
+          - Find which policy in an aggregated policy gives the wrong result for each user
+          - Fix a regular expression, a policy logic and a decision strategy without touching users
+          - Prove the fix with decisions for three users
+        resources:
+          - name: "Authorization Services Guide: regex-based policy"
+            url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_policy_regex
+          - name: "Authorization Services Guide: positive and negative logic"
+            url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_policy_logic
+          - name: "Authorization Services Guide: obtaining permissions"
+            url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_service_obtaining_permissions
+
+  - id: module-030
+    title: "UMA 2.0 And Policy Enforcement"
+    description: >
+      User-Managed Access 2.0: permission tickets, the requesting party token
+      and the Protection API; user-managed access and resource sharing; and a
+      policy enforcement point in an API that asks Keycloak for a decision on
+      every request.
+
+    content:
+      - type: reading
+        title: Section Overview
+        path: sections/section-030/README.md
+
+      - type: reading
+        title: "Enforce Decisions In An API With UMA 2.0"
+        path: sections/section-030/module-01/course.md
+      - type: reading
+        title: "UMA 2.0, Permission Tickets And The RPT"
+        path: sections/section-030/module-01/course-01-uma-permission-tickets-and-the-rpt.md
+      - type: reading
+        title: "User-Managed Access And Sharing"
+        path: sections/section-030/module-01/course-02-user-managed-access.md
+      - type: reading
+        title: "A Policy Enforcement Point In An API"
+        path: sections/section-030/module-01/course-03-a-policy-enforcement-point-in-an-api.md
+      - type: reading
+        title: Question
+        path: sections/section-030/module-01/labs/lab-01/question.md
+      - type: lab
+        title: "Make The API Refuse Deletes For Viewers Lab"
+        path: sections/section-030/module-01/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: enforcement
+        task_kind: troubleshooting
+        tags: [policy-enforcement-point, scope-permission, role-policy, decision-request, enforcement-mode, kcadm]
+        learning_goals:
+          - Trace a wrong API answer back to the permission Keycloak evaluated
+          - Fix the delete permission without changing the API or the users
+          - Prove the fix with requests to the API for a viewer and a manager
+        resources:
+          - name: "Authorization Services Guide: policy enforcers"
+            url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_enforcer_overview
+          - name: "Authorization Services Guide: obtaining permissions"
+            url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_service_obtaining_permissions
+      - type: reading
+        title: Summary
+        path: sections/section-030/module-01/course-04-summary.md
+
+      - type: reading
+        title: Question
+        path: sections/section-030/capstone/labs/lab-01/question.md
+      - type: lab
+        title: "Make The Inventory API Enforce Its Rules Capstone"
+        path: sections/section-030/capstone/labs/lab-01
+        difficulty: advanced
+        estimated_duration: 40m
+        topic: enforcement
+        task_kind: troubleshooting
+        tags: [policy-enforcement-point, resources, scopes, enforcement-mode, scope-permission, decision-request]
+        learning_goals:
+          - Find several independent faults between an API and its resource server
+          - Fix the API's settings and the authorization model without changing the API's code
+          - Prove the result with a full matrix of requests for a viewer and a manager
+        resources:
+          - name: "Authorization Services Guide: policy enforcers"
+            url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_enforcer_overview
+          - name: "Authorization Services Guide: UMA"
+            url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_service_user_managed_access

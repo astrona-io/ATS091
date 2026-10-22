@@ -1,0 +1,28 @@
+# Enforce Decisions In An API With UMA 2.0 (PLAYGROUND) — Playground environment
+# A clean sandbox: it spins up, runs OS prep, then stays running for free
+# exploration. No task, no grading, no `astrona submit`.
+# Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-091-playground-030-01"
+  docs:
+    guide: "docs/overview.md"
+
+bootstrap:
+  init:
+    - name: "prepare"
+      description: "Deploy Keycloak 26.8.1, the tester pod and inventory-api, create the inventory realm, and build the authorization model."
+      type: "file"
+      source: "bootstrap/prepare.sh"
+  manifests:
+    - name: "lab-start"
+      description: "Starting workloads (namespace, Keycloak, tester)."
+      type: "file"
+      source: "manifests/lab-start.yaml"
+    - name: "inventory-api"
+      description: "The inventory-api policy enforcement point (ConfigMap, Deployment, Service)."
+      type: "file"
+      source: "manifests/inventory-api.yaml"
+
+teardown:
+  keepCluster: false

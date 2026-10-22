@@ -1,0 +1,51 @@
+# Close A Resource Server That Allows Too Much
+# Astrona graded lab (section capstone). Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-091-capstone-010"
+  docs:
+    guide: "solution.md"
+    solution: "solution.md"
+    question: "question.md"
+    examQuestion: "question.md"
+    prerequisites: "prerequisites.md"
+
+bootstrap:
+  init:
+    - name: "deploy-keycloak"
+      description: "Deploys Keycloak 26.8.1 and the tester pod, and creates the inventory realm, users, roles and clients"
+      type: "file"
+      source: "bootstrap/01-deploy-keycloak.sh"
+    - name: "ats-091-capstone-010-setup"
+      description: "Builds the model, then breaks the enforcement mode, the delete permission and the edit permission"
+      type: "file"
+      source: "bootstrap/02-seed-state.sh"
+
+testing:
+  init:
+    - name: "wait-for-keycloak"
+      description: "Waits until Keycloak answers and kcadm.sh can sign in"
+      type: "file"
+      source: "testing/wait-for-keycloak.sh"
+    - name: "reference-solution"
+      description: "The repair a correct learner makes; used by `astrona test`"
+      type: "file"
+      source: "solution/apply.sh"
+
+validation:
+  scripts:
+    - name: "validate-enforcing"
+      description: "Confirms the policy enforcement mode is ENFORCING"
+      type: "file"
+      source: "validation/validate-enforcing.sh"
+    - name: "validate-decisions"
+      description: "Confirms alice may view, edit and delete, and bob may only view"
+      type: "file"
+      source: "validation/validate-decisions.sh"
+    - name: "validate-permission-kept"
+      description: "Confirms delete-items was corrected, not recreated, and the users keep their roles"
+      type: "file"
+      source: "validation/validate-permission-kept.sh"
+
+teardown:
+  keepCluster: false

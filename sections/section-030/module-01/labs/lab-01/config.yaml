@@ -1,0 +1,51 @@
+# Make The API Refuse Deletes For Viewers
+# Astrona graded lab. Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-091-lab-030-01"
+  docs:
+    guide: "solution.md"
+    solution: "solution.md"
+    question: "question.md"
+    examQuestion: "question.md"
+    prerequisites: "prerequisites.md"
+
+bootstrap:
+  init:
+    - name: "deploy-keycloak"
+      description: "Deploys Keycloak 26.8.1, the tester pod and inventory-api, and creates the inventory realm"
+      type: "file"
+      source: "bootstrap/01-deploy-keycloak.sh"
+    - name: "ats-091-lab-030-01-setup"
+      description: "Builds the model with delete-items protected by the viewer policy"
+      type: "file"
+      source: "bootstrap/02-seed-state.sh"
+
+testing:
+  init:
+    - name: "wait-for-keycloak"
+      description: "Waits until Keycloak and inventory-api answer"
+      type: "file"
+      source: "testing/wait-for-keycloak.sh"
+    - name: "reference-solution"
+      description: "The repair a correct learner makes; used by `astrona test`"
+      type: "file"
+      source: "solution/apply.sh"
+
+validation:
+  scripts:
+    - name: "validate-api-requests"
+      description: "Confirms inventory-api answers the seven requests as the rules say"
+      type: "file"
+      source: "validation/validate-api-requests.sh"
+    - name: "validate-api-untouched"
+      description: "Confirms the API code and its settings are unchanged"
+      type: "file"
+      source: "validation/validate-api-untouched.sh"
+    - name: "validate-model"
+      description: "Confirms ENFORCING mode, delete-items on inventory-managers, and bob still a viewer"
+      type: "file"
+      source: "validation/validate-model.sh"
+
+teardown:
+  keepCluster: false

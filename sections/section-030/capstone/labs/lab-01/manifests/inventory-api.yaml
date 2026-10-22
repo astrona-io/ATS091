@@ -1,0 +1,138 @@
+# inventory-api: a small HTTP API that is a policy enforcement point.
+# For every request it asks Keycloak for a decision with the uma-ticket grant
+# (response_mode=decision) and answers 200, 401 or 403. GET, POST and DELETE
+# on /items need the scopes view, edit and delete of the resource items.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: inventory-api-code
+  namespace: umacapstone-demo
+data:
+  server.js: |
+    const http = require('node:http');
+
+    const KEYCLOAK_URL = process.env.KEYCLOAK_URL || 'http://keycloak:8080';
+    const KEYCLOAK_REALM = process.env.KEYCLOAK_REALM || 'inventory';
+    const KEYCLOAK_AUDIENCE = process.env.KEYCLOAK_AUDIENCE || 'inventory-api';
+    const PROTECTED_RESOURCE = process.env.PROTECTED_RESOURCE || 'items';
+    const PORT = Number(process.env.PORT || 3000);
+    const TOKEN_ENDPOINT = `${KEYCLOAK_URL}/realms/${KEYCLOAK_REALM}/protocol/openid-connect/token`;
+    const SCOPE_FOR_METHOD = { GET: 'view', POST: 'edit', DELETE: 'delete' };
+    const items = [{ id: 1, name: 'bolt' }, { id: 2, name: 'nut' }];
+
+    // Ask Keycloak whether the bearer of this token may use this scope on the resource.
+    async function askKeycloak(authorizationHeader, scope) {
+      const body = new URLSearchParams({
+        grant_type: 'urn:ietf:params:oauth:grant-type:uma-ticket',
+        audience: KEYCLOAK_AUDIENCE,
+        permission: `${PROTECTED_RESOURCE}#${scope}`,
+        response_mode: 'decision',
+      });
+      const response = await fetch(TOKEN_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          Authorization: authorizationHeader,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body,
+      });
+      if (response.status === 403) return 'denied';
+      if (response.status === 401) return 'unauthenticated';
+      if (!response.ok) throw new Error(`Keycloak answered ${response.status}: ${await response.text()}`);
+      const decision = await response.json();
+      return decision.result === true ? 'granted' : 'denied';
+    }
+
+    function send(response, status, payload) {
+      response.writeHead(status, { 'Content-Type': 'application/json' });
+      response.end(JSON.stringify(payload));
+    }
+
+    const server = http.createServer(async (request, response) => {
+      const path = new URL(request.url, 'http://localhost').pathname;
+      if (path === '/healthz') return send(response, 200, { status: 'ok' });
+      if (path !== '/items' && !path.startsWith('/items/')) return send(response, 404, { error: 'not_found' });
+
+      const scope = SCOPE_FOR_METHOD[request.method];
+      if (!scope) return send(response, 405, { error: 'method_not_allowed' });
+
+      const authorizationHeader = request.headers.authorization || '';
+      if (!authorizationHeader.startsWith('Bearer ')) {
+        response.setHeader('WWW-Authenticate', `Bearer realm="${KEYCLOAK_REALM}"`);
+        return send(response, 401, { error: 'missing_bearer_token' });
+      }
+
+      try {
+        const result = await askKeycloak(authorizationHeader, scope);
+        console.log(`${request.method} ${path} scope=${scope} decision=${result}`);
+        if (result === 'unauthenticated') return send(response, 401, { error: 'invalid_token' });
+        if (result === 'denied') return send(response, 403, { error: 'access_denied', scope });
+        if (request.method === 'GET') return send(response, 200, { items });
+        return send(response, 200, { status: 'done', method: request.method, scope });
+      } catch (error) {
+        console.error(`${request.method} ${path} scope=${scope} error=${error.message}`);
+        return send(response, 502, { error: 'authorization_server_error' });
+      }
+    });
+
+    server.listen(PORT, () => console.log(`inventory-api listening on ${PORT}, asking ${TOKEN_ENDPOINT}`));
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-api
+  namespace: umacapstone-demo
+  labels:
+    app: inventory-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inventory-api
+  template:
+    metadata:
+      labels:
+        app: inventory-api
+    spec:
+      containers:
+        - name: inventory-api
+          image: node:22-alpine
+          command: ["node", "/app/server.js"]
+          env:
+            - name: KEYCLOAK_URL
+              value: http://keycloak:8080
+            - name: KEYCLOAK_REALM
+              value: inventory
+            - name: KEYCLOAK_AUDIENCE
+              value: inventory-api
+            - name: PROTECTED_RESOURCE
+              value: items
+          ports:
+            - name: http
+              containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          volumeMounts:
+            - name: code
+              mountPath: /app
+      volumes:
+        - name: code
+          configMap:
+            name: inventory-api-code
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventory-api
+  namespace: umacapstone-demo
+  labels:
+    app: inventory-api
+spec:
+  selector:
+    app: inventory-api
+  ports:
+    - name: http
+      port: 3000
+      targetPort: http

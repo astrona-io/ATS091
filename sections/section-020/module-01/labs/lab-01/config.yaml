@@ -1,0 +1,51 @@
+# Allow Deletes Only For Staff In Business Hours
+# Astrona graded lab. Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-091-lab-020-01"
+  docs:
+    guide: "solution.md"
+    solution: "solution.md"
+    question: "question.md"
+    examQuestion: "question.md"
+    prerequisites: "prerequisites.md"
+
+bootstrap:
+  init:
+    - name: "deploy-keycloak"
+      description: "Deploys Keycloak 26.8.1 and the tester pod, and creates the inventory realm, users, roles, group and clients"
+      type: "file"
+      source: "bootstrap/01-deploy-keycloak.sh"
+    - name: "ats-091-lab-020-01-setup"
+      description: "Builds the role-based model on inventory-api that the task narrows"
+      type: "file"
+      source: "bootstrap/02-seed-state.sh"
+
+testing:
+  init:
+    - name: "wait-for-keycloak"
+      description: "Waits until Keycloak answers and kcadm.sh can sign in"
+      type: "file"
+      source: "testing/wait-for-keycloak.sh"
+    - name: "reference-solution"
+      description: "The policies a correct learner creates; used by `astrona test`"
+      type: "file"
+      source: "solution/apply.sh"
+
+validation:
+  scripts:
+    - name: "validate-time-policy"
+      description: "Confirms business-hours is a time policy for the hours 8 to 17"
+      type: "file"
+      source: "validation/validate-time-policy.sh"
+    - name: "validate-aggregated-policy"
+      description: "Confirms the UNANIMOUS aggregate of staff-members and business-hours protects delete"
+      type: "file"
+      source: "validation/validate-aggregated-policy.sh"
+    - name: "validate-decisions"
+      description: "Confirms the decisions that do not depend on the clock"
+      type: "file"
+      source: "validation/validate-decisions.sh"
+
+teardown:
+  keepCluster: false
