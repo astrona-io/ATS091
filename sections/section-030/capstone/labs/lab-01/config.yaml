@@ -40,7 +40,7 @@ validation:
       type: "file"
       source: "validation/validate-api-untouched.sh"
     - name: "validate-model"
-      description: "Confirms ENFORCING mode, all three scopes on items, view-items on inventory-viewers, and the roles intact"
+      description: "Confirms ENFORCING mode, all three scopes on items, view-items on inventory-viewers, edit-items on edit, and the roles intact"
       type: "file"
       source: "validation/validate-model.sh"
 teardown:

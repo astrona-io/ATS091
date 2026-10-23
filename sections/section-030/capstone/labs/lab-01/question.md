@@ -30,4 +30,4 @@ Find every fault between `inventory-api` and its resource server in Keycloak and
 
 - `alice` gets `200` for `GET`, `POST` and `DELETE` on `/items`; `bob` gets `200` for `GET` and `403` for `POST` and `DELETE`; a request without a token gets `401`.
 - `inventory-api` asks for the audience `inventory-api`.
-- The resource `items` lists `view`, `edit` and `delete`, and `view-items` uses only `inventory-viewers`.
+- The resource `items` lists `view`, `edit` and `delete`, `view-items` uses only `inventory-viewers`, and `edit-items` covers the scope `edit`.

@@ -85,6 +85,20 @@ kcadm update $AUTHZ/permission/scope/$(authz_id policy view-items) -r inventory 
   -s decisionStrategy=UNANIMOUS -s "policies=[\"$(authz_id policy inventory-viewers)\"]"
 ```
 
+Ask Keycloak again:
+
+```sh
+for scope in view edit delete; do echo "alice $scope $(decision alice items#$scope)"; done
+kcadm get $AUTHZ/policy/$(authz_id policy edit-items)/scopes -r inventory --fields name
+```
+
+`alice` still cannot `edit`, and `edit-items` lists no scopes. When a scope is taken off a resource, Keycloak also takes it off every permission that used it, and putting the scope back on the resource does not restore those links. Give `edit-items` its scope again:
+
+```sh
+kcadm update $AUTHZ/permission/scope/$(authz_id policy edit-items) -r inventory \
+  -s "scopes=[\"$(authz_id scope edit)\"]"
+```
+
 ## Step 5: Prove it
 
 ```sh

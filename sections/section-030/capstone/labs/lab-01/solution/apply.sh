@@ -144,3 +144,6 @@ wait_for_api
 kcadm update "$(authz_path)/resource/$(authz_id resource items)" -r inventory \
   -s "scopes=[{\"name\":\"view\"},{\"name\":\"edit\"},{\"name\":\"delete\"}]"
 set_permission_policies view-items UNANIMOUS inventory-viewers
+# Taking edit off the resource also took it off edit-items; put it back.
+kcadm update "$(authz_path)/permission/scope/$(authz_id policy edit-items)" -r inventory \
+  -s "scopes=[\"$(authz_id scope edit)\"]"

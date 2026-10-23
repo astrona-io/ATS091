@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# PASS when the resource server is ENFORCING, items lists view, edit and delete,
+# PASS when the resource server is ENFORCING, items lists view, edit and delete, edit-items covers edit,
 # view-items uses inventory-viewers, and the users keep their roles.
 set -uo pipefail
 # grep -q stops reading at the first match; under pipefail the command
@@ -81,6 +81,11 @@ if [ "$VIEW_POLICIES" != "inventory-viewers " ]; then
   echo "FAIL: view-items uses '$VIEW_POLICIES', expected only inventory-viewers."
   exit 1
 fi
+EDIT_SCOPES="$(kcadm get "$(authz_path)/policy/$(authz_id policy edit-items)/scopes" -r inventory --fields name --format csv --noquotes | tr '\n' ' ')"
+if [ "$EDIT_SCOPES" != "edit " ]; then
+  echo "FAIL: edit-items covers the scopes '$EDIT_SCOPES', expected only edit."
+  exit 1
+fi
 for pair in alice:inventory-manager alice:inventory-viewer bob:inventory-viewer; do
   user="${pair%%:*}"; role="${pair#*:}"
   if ! kcadm get "users/$(user_uuid "$user")/role-mappings/realm" -r inventory --fields name --format csv --noquotes | grep -qx "$role"; then
@@ -88,5 +93,5 @@ for pair in alice:inventory-manager alice:inventory-viewer bob:inventory-viewer;
     exit 1
   fi
 done
-echo "PASS: ENFORCING, items lists all three scopes, view-items uses inventory-viewers, and the roles are intact."
+echo "PASS: ENFORCING, items lists all three scopes, view-items uses inventory-viewers, edit-items covers edit, and the roles are intact."
 exit 0
