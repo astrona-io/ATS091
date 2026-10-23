@@ -49,6 +49,12 @@ decision() {
     -d audience=inventory-api -d permission="$2" -d response_mode=decision
 }
 
+associated_policy_names() {
+  # associated_policy_names POLICY -> sorted names, one per line
+  kcadm get "$(authz_path)/policy/$(authz_id policy "$1")/associatedPolicies" -r inventory \
+    --fields name --format csv --noquotes | sort
+}
+
 kcadm_login || { echo "FAIL: could not sign in to Keycloak."; exit 1; }
 
 for policy in staff-members company-email staff-with-company-email; do
