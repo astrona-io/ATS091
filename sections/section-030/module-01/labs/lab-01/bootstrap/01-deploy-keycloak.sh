@@ -15,6 +15,9 @@ done
 
 # lab-start.yaml may also be listed under bootstrap.manifests; kubectl apply is idempotent.
 echo "[setup] Applying the starting workloads..."
+# lab-start.yaml holds the namespace; apply it first, because the loop runs
+# in alphabetical order and other manifests need the namespace.
+[ -f "$MANIFEST_DIR/lab-start.yaml" ] && kubectl apply -f "$MANIFEST_DIR/lab-start.yaml"
 for manifest in "$MANIFEST_DIR"/*.yaml; do kubectl apply -f "$manifest"; done
 
 # The first rollout pulls a large image, and Keycloak takes a while to start.
