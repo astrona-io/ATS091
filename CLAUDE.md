@@ -358,6 +358,12 @@ real application uses the authorization code flow.
   (roles in a role policy, groups in a group policy, resources, scopes and
   policies in a permission); `authz_id` and `kcadm get roles/<name>` give
   them.
+- **Seen on a live run (2026-10-23):** a resource's `scopes` list must name
+  each scope (`{"name":"view"}`, or `id` together with `name`). Scope
+  objects with only an `id` are collapsed into one: Keycloak 26.8.1 stores
+  just the first scope, and a later scope permission on another scope fails
+  with `Scope [edit] is not associated with any of the resources set to the
+  permission`. Permissions still take plain id strings in `scopes`.
 - **Keycloak 26.8.1 facts (from the documentation, not yet seen on a run):**
   - Authorization needs a confidential client (`publicClient=false`) with
     service accounts on; then `authorizationServicesEnabled=true`.

@@ -86,7 +86,7 @@ To see the difference, add a fourth scope, `export`, to `items`, but write no pe
 kcadm create $AUTHZ/scope -r inventory -s name=export
 ITEMS_ID=$(authz_id resource items)
 kcadm update $AUTHZ/resource/$ITEMS_ID -r inventory \
-  -s "scopes=[{\"id\":\"$(authz_id scope view)\"},{\"id\":\"$(authz_id scope edit)\"},{\"id\":\"$(authz_id scope delete)\"},{\"id\":\"$(authz_id scope export)\"}]"
+  -s "scopes=[{\"name\":\"view\"},{\"name\":\"edit\"},{\"name\":\"delete\"},{\"name\":\"export\"}]"
 echo "alice export $(decision alice items#export)"
 ```
 

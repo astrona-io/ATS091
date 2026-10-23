@@ -80,7 +80,7 @@ The resource `items` lists only `view` and `delete`, so nothing can grant `edit`
 
 ```sh
 kcadm update $AUTHZ/resource/$(authz_id resource items) -r inventory \
-  -s "scopes=[{\"id\":\"$(authz_id scope view)\"},{\"id\":\"$(authz_id scope edit)\"},{\"id\":\"$(authz_id scope delete)\"}]"
+  -s "scopes=[{\"name\":\"view\"},{\"name\":\"edit\"},{\"name\":\"delete\"}]"
 kcadm update $AUTHZ/permission/scope/$(authz_id policy view-items) -r inventory \
   -s decisionStrategy=UNANIMOUS -s "policies=[\"$(authz_id policy inventory-viewers)\"]"
 ```

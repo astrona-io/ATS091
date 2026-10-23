@@ -67,7 +67,7 @@ create_items_resource() {
   # create_items_resource SCOPE... (the scopes the resource lists)
   [ -n "$(authz_id resource items)" ] && return 0
   local scopes="" scope
-  for scope in "$@"; do scopes="$scopes{\"id\":\"$(authz_id scope "$scope")\"},"; done
+  for scope in "$@"; do scopes="$scopes{\"name\":\"$scope\"},"; done
   kcadm create "$(authz_path)/resource" -r inventory -s name=items \
     -s type=urn:inventory-api:resources:item -s 'uris=["/items","/items/*"]' \
     -s "scopes=[${scopes%,}]"
@@ -146,7 +146,7 @@ code_checksum() { kubectl -n "$NAMESPACE" get configmap inventory-api-code -o js
 kcadm_login
 seed_full_model
 kcadm update "$(authz_path)/resource/$(authz_id resource items)" -r inventory \
-  -s "scopes=[{\"id\":\"$(authz_id scope view)\"},{\"id\":\"$(authz_id scope delete)\"}]"
+  -s "scopes=[{\"name\":\"view\"},{\"name\":\"delete\"}]"
 set_permission_policies view-items UNANIMOUS inventory-managers
 kubectl -n "$NAMESPACE" set env deployment/inventory-api KEYCLOAK_AUDIENCE=inventory-web
 wait_for_api

@@ -50,7 +50,7 @@ Now create the scope, add it to `items`, and protect it with the role policy `in
 kcadm create $AUTHZ/scope -r inventory -s name=audit
 ITEMS_ID=$(authz_id resource items)
 kcadm update $AUTHZ/resource/$ITEMS_ID -r inventory \
-  -s "scopes=[{\"id\":\"$(authz_id scope view)\"},{\"id\":\"$(authz_id scope edit)\"},{\"id\":\"$(authz_id scope delete)\"},{\"id\":\"$(authz_id scope audit)\"}]"
+  -s "scopes=[{\"name\":\"view\"},{\"name\":\"edit\"},{\"name\":\"delete\"},{\"name\":\"audit\"}]"
 kcadm create $AUTHZ/permission/scope -r inventory -s name=audit-items \
   -s "resources=[\"$ITEMS_ID\"]" -s "scopes=[\"$(authz_id scope audit)\"]" \
   -s "policies=[\"$(authz_id policy inventory-viewers)\"]"

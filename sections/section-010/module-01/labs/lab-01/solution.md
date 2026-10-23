@@ -52,7 +52,7 @@ The mode is `ENFORCING`, the default. Leave it.
 for scope in view edit delete; do kcadm create $AUTHZ/scope -r inventory -s name=$scope; done
 kcadm create $AUTHZ/resource -r inventory -s name=items \
   -s type=urn:inventory-api:resources:item -s 'uris=["/items","/items/*"]' \
-  -s "scopes=[{\"id\":\"$(authz_id scope view)\"},{\"id\":\"$(authz_id scope edit)\"},{\"id\":\"$(authz_id scope delete)\"}]"
+  -s "scopes=[{\"name\":\"view\"},{\"name\":\"edit\"},{\"name\":\"delete\"}]"
 kcadm get $AUTHZ/resource/$(authz_id resource items)/scopes -r inventory --fields name
 ```
 

@@ -48,12 +48,12 @@ Create the three scopes. Each one is only a name; it gets meaning from the resou
 for scope in view edit delete; do kcadm create $AUTHZ/scope -r inventory -s name=$scope; done
 ```
 
-Now create the resource `items`. Its `uris` are the API paths it stands for, its `type` groups resources of the same kind, and its `scopes` list the three actions by id:
+Now create the resource `items`. Its `uris` are the API paths it stands for, its `type` groups resources of the same kind, and its `scopes` list the three actions by name:
 
 ```sh
 kcadm create $AUTHZ/resource -r inventory -s name=items \
   -s type=urn:inventory-api:resources:item -s 'uris=["/items","/items/*"]' \
-  -s "scopes=[{\"id\":\"$(authz_id scope view)\"},{\"id\":\"$(authz_id scope edit)\"},{\"id\":\"$(authz_id scope delete)\"}]"
+  -s "scopes=[{\"name\":\"view\"},{\"name\":\"edit\"},{\"name\":\"delete\"}]"
 kcadm get $AUTHZ/resource/$(authz_id resource items)/scopes -r inventory --fields name
 ```
 

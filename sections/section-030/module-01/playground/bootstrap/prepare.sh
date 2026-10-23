@@ -119,7 +119,7 @@ create_items_resource() {
   # create_items_resource SCOPE... (the scopes the resource lists)
   [ -n "$(authz_id resource items)" ] && return 0
   local scopes="" scope
-  for scope in "$@"; do scopes="$scopes{\"id\":\"$(authz_id scope "$scope")\"},"; done
+  for scope in "$@"; do scopes="$scopes{\"name\":\"$scope\"},"; done
   kcadm create "$(authz_path)/resource" -r inventory -s name=items \
     -s type=urn:inventory-api:resources:item -s 'uris=["/items","/items/*"]' \
     -s "scopes=[${scopes%,}]"

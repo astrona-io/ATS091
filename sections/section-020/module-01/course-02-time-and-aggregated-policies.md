@@ -49,7 +49,7 @@ If the scope `audit`, the permission `audit-items` or the group policy `staff-me
 ```sh
 kcadm create $AUTHZ/scope -r inventory -s name=audit
 kcadm update $AUTHZ/resource/$(authz_id resource items) -r inventory \
-  -s "scopes=[{\"id\":\"$(authz_id scope view)\"},{\"id\":\"$(authz_id scope edit)\"},{\"id\":\"$(authz_id scope delete)\"},{\"id\":\"$(authz_id scope audit)\"}]"
+  -s "scopes=[{\"name\":\"view\"},{\"name\":\"edit\"},{\"name\":\"delete\"},{\"name\":\"audit\"}]"
 kcadm create $AUTHZ/permission/scope -r inventory -s name=audit-items \
   -s "resources=[\"$(authz_id resource items)\"]" -s "scopes=[\"$(authz_id scope audit)\"]" \
   -s "policies=[\"$(authz_id policy inventory-viewers)\"]"
