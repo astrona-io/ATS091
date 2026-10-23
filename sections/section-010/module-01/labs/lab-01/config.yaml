@@ -9,7 +9,6 @@ metadata:
     question: "question.md"
     examQuestion: "question.md"
     prerequisites: "prerequisites.md"
-
 bootstrap:
   init:
     - name: "deploy-keycloak"
@@ -20,7 +19,6 @@ bootstrap:
       description: "Leaves inventory-api with authorization switched off, which is where the task starts"
       type: "file"
       source: "bootstrap/02-seed-state.sh"
-
 testing:
   init:
     - name: "wait-for-keycloak"
@@ -31,7 +29,6 @@ testing:
       description: "The model a correct learner builds; used by `astrona test`"
       type: "file"
       source: "solution/apply.sh"
-
 validation:
   scripts:
     - name: "validate-resource-model"
@@ -46,6 +43,10 @@ validation:
       description: "Confirms the three permissions exist and use role policies only"
       type: "file"
       source: "validation/validate-role-based-permissions.sh"
-
 teardown:
   keepCluster: false
+runtime:
+  kind:
+    preloadImages:
+      - nicolaka/netshoot:v0.13
+      - quay.io/keycloak/keycloak:26.8.1
