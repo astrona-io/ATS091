@@ -125,6 +125,10 @@ modules:
             url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_resource_server_enforcement_mode
           - name: "Authorization Services Guide: decision strategies"
             url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_permission_decision_strategy
+      - type: quiz
+        title: "Knowledge Check: The Authorization Services Model"
+        path: sections/section-010/quiz.yaml
+        pass_score: 70
 
   - id: module-020
     title: "Policies And Decisions"
@@ -202,6 +206,10 @@ modules:
             url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_policy_logic
           - name: "Authorization Services Guide: obtaining permissions"
             url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_service_obtaining_permissions
+      - type: quiz
+        title: "Knowledge Check: Policies And Decisions"
+        path: sections/section-020/quiz.yaml
+        pass_score: 70
 
   - id: module-030
     title: "UMA 2.0 And Policy Enforcement"
@@ -272,3 +280,12 @@ modules:
             url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_enforcer_overview
           - name: "Authorization Services Guide: UMA"
             url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_service_user_managed_access
+      - type: quiz
+        title: "Knowledge Check: UMA 2.0 And Policy Enforcement"
+        path: sections/section-030/quiz.yaml
+        pass_score: 70
+      - type: quiz
+        title: "Final Domain Quiz"
+        path: sections/final-domain-quiz.yaml
+        pass_score: 70
+

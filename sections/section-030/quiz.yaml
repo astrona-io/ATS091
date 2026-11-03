@@ -1,0 +1,245 @@
+# Knowledge check for section 030. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats091-030
+course_id: ATS091
+exam_code: KEYCLOAK
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-030
+  title: "UMA 2.0 And Policy Enforcement"
+placement:
+  position: after
+  reading: sections/section-030/capstone/labs/lab-01/question.md
+questions:
+  - id: ats091-030-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Name the token that calls the Protection API"
+    source_readings:
+      - sections/section-030/module-01/course-01-uma-permission-tickets-and-the-rpt.md
+    prompt: "Which token does a resource server use to call the Protection API?"
+    options:
+      - id: a
+        text: "A protection API token (PAT), a token of its service account with the scope `uma_protection`."
+        explanation: "Correct. It comes from the client credentials grant."
+      - id: b
+        text: "The access token of the user."
+        explanation: "Not correct. The Protection API needs the resource server's own token."
+      - id: c
+        text: "The requesting party token (RPT)."
+        explanation: "Not correct. An RPT carries granted permissions."
+      - id: d
+        text: "The ID token of the user."
+        explanation: "Not correct. An ID token is not used for this."
+    correct_option: a
+    explanation: "Correct. It comes from the client credentials grant."
+
+  - id: ats091-030-q02
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Say what a permission ticket is"
+    source_readings:
+      - sections/section-030/module-01/course-01-uma-permission-tickets-and-the-rpt.md
+    prompt: "What does a permission ticket contain?"
+    options:
+      - id: a
+        text: "The permissions Keycloak already granted."
+        explanation: "Not correct. That is the RPT."
+      - id: b
+        text: "The resources and scopes that a request needs."
+        explanation: "Correct. It names what is needed and grants nothing."
+      - id: c
+        text: "The password of the user."
+        explanation: "Not correct. Tickets never hold passwords."
+      - id: d
+        text: "The policies of the resource server."
+        explanation: "Not correct. Policies stay in Keycloak."
+    correct_option: b
+    explanation: "Correct. It names what is needed and grants nothing."
+
+  - id: ats091-030-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Read the UMA response of an API"
+    source_readings:
+      - sections/section-030/module-01/course-01-uma-permission-tickets-and-the-rpt.md
+    prompt: "An API refuses a request with `401` and a `WWW-Authenticate: UMA` header. Which values does the header hold?"
+    options:
+      - id: a
+        text: "`client_id`, `client_secret` and `scope`."
+        explanation: "Not correct. Secrets are never sent to the client."
+      - id: b
+        text: "`audience`, `permission` and `response_mode`."
+        explanation: "Not correct. Those are parameters of a decision request."
+      - id: c
+        text: "`realm`, `as_uri` and `ticket`."
+        explanation: "Correct. The client uses them to ask Keycloak."
+      - id: d
+        text: "`owner`, `ownerManagedAccess` and `resource_scopes`."
+        explanation: "Not correct. Those describe a resource."
+    correct_option: c
+    explanation: "Correct. The client uses them to ask Keycloak."
+
+  - id: ats091-030-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Tell a ticket from an RPT"
+    source_readings:
+      - sections/section-030/module-01/course-01-uma-permission-tickets-and-the-rpt.md
+    prompt: "Which statement about a ticket and an RPT is correct?"
+    options:
+      - id: a
+        text: "The ticket grants access and the RPT only names it."
+        explanation: "Not correct. It is the other way round."
+      - id: b
+        text: "Both carry the granted permissions."
+        explanation: "Not correct. Only the RPT does."
+      - id: c
+        text: "The RPT is created by the API without Keycloak."
+        explanation: "Not correct. Keycloak issues the RPT."
+      - id: d
+        text: "The ticket names what a request needs, and the RPT carries what Keycloak granted."
+        explanation: "Correct. Only the RPT grants."
+    correct_option: d
+    explanation: "Correct. Only the RPT grants."
+
+  - id: ats091-030-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Switch on user-managed access"
+    source_readings:
+      - sections/section-030/module-01/course-02-user-managed-access.md
+    prompt: "Which setting lets users manage their resources in the Account Console?"
+    options:
+      - id: a
+        text: "The realm setting `userManagedAccessAllowed`."
+        explanation: "Correct. It is User-managed access on the General tab of Realm settings."
+      - id: b
+        text: "The client setting `publicClient`."
+        explanation: "Not correct. It has nothing to do with sharing."
+      - id: c
+        text: "The resource server mode `DISABLED`."
+        explanation: "Not correct. That switches off policy evaluation."
+      - id: d
+        text: "The policy logic `NEGATIVE`."
+        explanation: "Not correct. Logic does not enable sharing."
+    correct_option: a
+    explanation: "Correct. It is User-managed access on the General tab of Realm settings."
+
+  - id: ats091-030-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Create a user-owned resource"
+    source_readings:
+      - sections/section-030/module-01/course-02-user-managed-access.md
+    prompt: "How does a resource server create a resource owned by `alice` that she can share?"
+    options:
+      - id: a
+        text: "With `alice`'s token, through the Protection API."
+        explanation: "Not correct. The Protection API needs the PAT."
+      - id: b
+        text: "With a PAT, through the Protection API, with `owner` set to her user id and `ownerManagedAccess` set to `true`."
+        explanation: "Correct. The owner is a field of the resource."
+      - id: c
+        text: "By adding the role `owner` to `alice`."
+        explanation: "Not correct. Ownership is a resource field, not a role."
+      - id: d
+        text: "By setting the enforcement mode to `PERMISSIVE`."
+        explanation: "Not correct. That opens unprotected resources to everyone."
+    correct_option: b
+    explanation: "Correct. The owner is a field of the resource."
+
+  - id: ats091-030-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Describe how an owner shares"
+    source_readings:
+      - sections/section-030/module-01/course-02-user-managed-access.md
+    prompt: "`alice` owns `alice-shelf` and grants a permission ticket for `view` to `bob`. What follows?"
+    options:
+      - id: a
+        text: "`bob` gets every scope of every resource."
+        explanation: "Not correct. A ticket covers only what it names."
+      - id: b
+        text: "Nothing changes until an administrator approves."
+        explanation: "Not correct. The owner's grant is enough."
+      - id: c
+        text: "`bob` can use `view` on `alice-shelf`, with no administrator policy written."
+        explanation: "Correct. The grant covers only that resource and scope."
+      - id: d
+        text: "`alice` loses access to her resource."
+        explanation: "Not correct. The owner always keeps access."
+    correct_option: c
+    explanation: "Correct. The grant covers only that resource and scope."
+
+  - id: ats091-030-q08
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Read a policy enforcement point"
+    source_readings:
+      - sections/section-030/module-01/course-03-a-policy-enforcement-point-in-an-api.md
+    prompt: "What does `inventory-api` do before it asks Keycloak?"
+    options:
+      - id: a
+        text: "It reads the user's roles and decides alone."
+        explanation: "Not correct. The decision comes from Keycloak."
+      - id: b
+        text: "It copies the policies into its own code."
+        explanation: "Not correct. The rules stay in Keycloak."
+      - id: c
+        text: "It creates a new scope for each request."
+        explanation: "Not correct. Scopes are created in the model, not per request."
+      - id: d
+        text: "It maps the HTTP method to a scope, for example `DELETE` to `delete`, and builds `items#<scope>`."
+        explanation: "Correct. The API and Keycloak must use the same names."
+    correct_option: d
+    explanation: "Correct. The API and Keycloak must use the same names."
+
+  - id: ats091-030-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Tell 401 from 403"
+    source_readings:
+      - sections/section-030/module-01/course-03-a-policy-enforcement-point-in-an-api.md
+    prompt: "The API returns `401` for a request that has no token. What does it mean?"
+    options:
+      - id: a
+        text: "There is no valid token, and the API decided that without asking Keycloak."
+        explanation: "Correct. `403` is the answer for a denial."
+      - id: b
+        text: "Keycloak denied the permission."
+        explanation: "Not correct. That is `403`."
+      - id: c
+        text: "The resource name does not exist."
+        explanation: "Not correct. A missing resource is not `401`."
+      - id: d
+        text: "The enforcement mode is `ENFORCING`."
+        explanation: "Not correct. The mode does not decide `401`."
+    correct_option: a
+    explanation: "Correct. `403` is the answer for a denial."
+
+  - id: ats091-030-q10
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Trace a wrong API answer"
+    source_readings:
+      - sections/section-030/module-01/course-03-a-policy-enforcement-point-in-an-api.md
+    prompt: "The API lets `bob` delete. Asking Keycloak directly with the same `audience` and `permission` also returns `200` for `bob`. Where is the fault?"
+    options:
+      - id: a
+        text: "In the API's settings, so change the audience."
+        explanation: "Not correct. The same question gives the same answer, so the API asks correctly."
+      - id: b
+        text: "In the model, so check the permission for `delete` and its policies."
+        explanation: "Correct. Both sides agree, so the model is wrong."
+      - id: c
+        text: "In the user's password."
+        explanation: "Not correct. The password is not part of the decision."
+      - id: d
+        text: "In the API's log format."
+        explanation: "Not correct. Logs show the problem and do not cause it."
+    correct_option: b
+    explanation: "Correct. Both sides agree, so the model is wrong."

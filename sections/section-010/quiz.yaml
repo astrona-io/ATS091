@@ -1,0 +1,245 @@
+# Knowledge check for section 010. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats091-010
+course_id: ATS091
+exam_code: KEYCLOAK
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-010
+  title: "The Authorization Services Model"
+placement:
+  position: after
+  reading: sections/section-010/capstone/labs/lab-01/question.md
+questions:
+  - id: ats091-010-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Explain why a role in a token is not enough"
+    source_readings:
+      - sections/section-010/module-01/course-01-why-roles-are-not-enough.md
+    prompt: "An API must allow deletes only between 08:00 and 18:00. Why can a role in the access token not express this rule alone?"
+    options:
+      - id: a
+        text: "A role says who the user is, not when the request arrives, so the rule needs the time as an input."
+        explanation: "Correct. A role cannot hold the time of the request."
+      - id: b
+        text: "Keycloak never puts roles into an access token."
+        explanation: "Not correct. Keycloak puts realm roles in the claim `realm_access.roles`."
+      - id: c
+        text: "Roles can only be assigned to groups, not to users."
+        explanation: "Not correct. Roles can be assigned to users and to groups."
+      - id: d
+        text: "The access token is encrypted, so the API cannot read the roles."
+        explanation: "Not correct. The payload of the token is only encoded and anyone who holds it can decode it."
+    correct_option: a
+    explanation: "Correct. A role cannot hold the time of the request."
+
+  - id: ats091-010-q02
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Name the access control model Authorization Services implements"
+    source_readings:
+      - sections/section-010/module-01/course-01-why-roles-are-not-enough.md
+    prompt: "Which access control model does Keycloak Authorization Services implement?"
+    options:
+      - id: a
+        text: "Role-based access control only, with no other inputs."
+        explanation: "Not correct. Role policies are one kind of policy among several."
+      - id: b
+        text: "Policy-based access control, with named policies kept outside the application."
+        explanation: "Correct. Rules live in Keycloak as policies."
+      - id: c
+        text: "Discretionary access control, set by the file system."
+        explanation: "Not correct. Authorization Services does not use file permissions."
+      - id: d
+        text: "Network-based access control, set by IP address."
+        explanation: "Not correct. Policies do not filter on network addresses by default."
+    correct_option: b
+    explanation: "Correct. Rules live in Keycloak as policies."
+
+  - id: ats091-010-q03
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Describe what turns a client into a resource server"
+    source_readings:
+      - sections/section-010/module-01/course-01-why-roles-are-not-enough.md
+    prompt: "What must be true of a client before you can switch on `authorizationServicesEnabled` for it?"
+    options:
+      - id: a
+        text: "It is a public client without a secret."
+        explanation: "Not correct. Keycloak refuses authorization for a public client."
+      - id: b
+        text: "It uses the SAML protocol."
+        explanation: "Not correct. Authorization Services here is set on an OpenID Connect client."
+      - id: c
+        text: "It is a confidential client, so it can keep a secret."
+        explanation: "Correct. A public client cannot become a resource server."
+      - id: d
+        text: "It has no service account."
+        explanation: "Not correct. The resource server needs a service account."
+    correct_option: c
+    explanation: "Correct. A public client cannot become a resource server."
+
+  - id: ats091-010-q04
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Tell the four object kinds apart"
+    source_readings:
+      - sections/section-010/module-01/course-02-resources-scopes-and-permissions.md
+    prompt: "Which object is a rule that grants or denies on its own, such as \"the user has the role `inventory-manager`\"?"
+    options:
+      - id: a
+        text: "A scope."
+        explanation: "Not correct. A scope is an action such as `view`."
+      - id: b
+        text: "A resource."
+        explanation: "Not correct. A resource is a thing to protect."
+      - id: c
+        text: "A permission."
+        explanation: "Not correct. A permission joins policies to resources or scopes."
+      - id: d
+        text: "A policy."
+        explanation: "Correct. A policy only decides."
+    correct_option: d
+    explanation: "Correct. A policy only decides."
+
+  - id: ats091-010-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain what a permission does"
+    source_readings:
+      - sections/section-010/module-01/course-02-resources-scopes-and-permissions.md
+    prompt: "You create a role policy but no permission uses it. What effect does the policy have on decisions?"
+    options:
+      - id: a
+        text: "None. A policy only decides, and a permission must use it to protect anything."
+        explanation: "Correct. Only a permission protects a resource or scope."
+      - id: b
+        text: "It protects every resource of the resource server."
+        explanation: "Not correct. Without a permission it protects nothing."
+      - id: c
+        text: "It protects the resources that have the same name."
+        explanation: "Not correct. Names do not link a policy to a resource."
+      - id: d
+        text: "It switches the enforcement mode to `ENFORCING`."
+        explanation: "Not correct. A policy does not change the enforcement mode."
+    correct_option: a
+    explanation: "Correct. Only a permission protects a resource or scope."
+
+  - id: ats091-010-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Read the parameters of a decision request"
+    source_readings:
+      - sections/section-010/module-01/course-02-resources-scopes-and-permissions.md
+    prompt: "A decision request has `permission=items#delete` but no `audience`. What is wrong?"
+    options:
+      - id: a
+        text: "Nothing. `audience` is optional when `permission` is set."
+        explanation: "Not correct. `permission` needs `audience`."
+      - id: b
+        text: "Keycloak cannot know which resource server's resources the permission names, so `audience` must be the resource server's client ID."
+        explanation: "Correct. `audience` is required with `permission`."
+      - id: c
+        text: "The `response_mode` must be `permissions` instead."
+        explanation: "Not correct. `decision` is a valid mode for this request."
+      - id: d
+        text: "The `permission` must use a dot instead of `#`."
+        explanation: "Not correct. The format is `resource#scope`."
+    correct_option: b
+    explanation: "Correct. `audience` is required with `permission`."
+
+  - id: ats091-010-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Interpret the status code of a decision request"
+    source_readings:
+      - sections/section-010/module-01/course-02-resources-scopes-and-permissions.md
+    prompt: "A decision request returns HTTP `403` with the error `access_denied`. What does it mean?"
+    options:
+      - id: a
+        text: "The request was malformed and Keycloak did not read it."
+        explanation: "Not correct. A malformed request does not give `access_denied`."
+      - id: b
+        text: "The user's token has expired."
+        explanation: "Not correct. An expired token is not the cause of `access_denied` here."
+      - id: c
+        text: "Keycloak evaluated the request and denied it."
+        explanation: "Correct. In a decision request, `403` is the answer denied."
+      - id: d
+        text: "The resource server is down."
+        explanation: "Not correct. A down server gives no Keycloak answer at all."
+    correct_option: c
+    explanation: "Correct. In a decision request, `403` is the answer denied."
+
+  - id: ats091-010-q08
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Predict a result from a decision strategy"
+    source_readings:
+      - sections/section-010/module-01/course-03-decision-strategies-and-enforcement-mode.md
+    prompt: "A permission has two policies. One grants and one denies. The decision strategy is `UNANIMOUS`. What is the result?"
+    options:
+      - id: a
+        text: "Grant, because at least one policy grants."
+        explanation: "Not correct. That is `AFFIRMATIVE`."
+      - id: b
+        text: "Grant, because the results are equal."
+        explanation: "Not correct. A tie matters only for `CONSENSUS`, and it denies."
+      - id: c
+        text: "Error, because the policies disagree."
+        explanation: "Not correct. Keycloak gives a decision, not an error."
+      - id: d
+        text: "Deny, because every policy must grant."
+        explanation: "Correct. `UNANIMOUS` needs all policies to grant."
+    correct_option: d
+    explanation: "Correct. `UNANIMOUS` needs all policies to grant."
+
+  - id: ats091-010-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Predict a result with the enforcement mode"
+    source_readings:
+      - sections/section-010/module-01/course-03-decision-strategies-and-enforcement-mode.md
+    prompt: "A new scope `export` has no permission. The resource server is in `ENFORCING` mode. What does `alice`, who holds every role, get for `items#export`?"
+    options:
+      - id: a
+        text: "Deny, because a request that no permission covers is denied."
+        explanation: "Correct. `ENFORCING` fails closed."
+      - id: b
+        text: "Grant, because she holds every role."
+        explanation: "Not correct. Roles do not matter when no permission covers the scope."
+      - id: c
+        text: "Grant, because the scope belongs to a resource she can view."
+        explanation: "Not correct. Each scope needs its own permission."
+      - id: d
+        text: "An error, because the scope has no policy."
+        explanation: "Not correct. Keycloak answers deny."
+    correct_option: a
+    explanation: "Correct. `ENFORCING` fails closed."
+
+  - id: ats091-010-q10
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Judge a risky fix for a denial"
+    source_readings:
+      - sections/section-010/module-01/course-03-decision-strategies-and-enforcement-mode.md
+    prompt: "A team switches the policy enforcement mode to `PERMISSIVE` to remove a `403`. What is the main risk?"
+    options:
+      - id: a
+        text: "It deletes all existing permissions."
+        explanation: "Not correct. Existing permissions stay and still decide."
+      - id: b
+        text: "It also grants every request that no permission covers, including scopes added later."
+        explanation: "Correct. The unprotected part of the model opens for everyone."
+      - id: c
+        text: "It makes `UNANIMOUS` behave like `CONSENSUS`."
+        explanation: "Not correct. It does not change decision strategies."
+      - id: d
+        text: "It stops Keycloak from issuing tokens."
+        explanation: "Not correct. Token issuing is not affected."
+    correct_option: b
+    explanation: "Correct. The unprotected part of the model opens for everyone."

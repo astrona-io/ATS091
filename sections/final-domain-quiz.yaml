@@ -1,0 +1,219 @@
+# Final domain knowledge check across all three sections.
+schema_version: 1
+kind: question_bank
+id: ats091-final
+course_id: ATS091
+exam_code: KEYCLOAK
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: domain
+  id: fine-grained-authorization-services
+  title: "Fine-Grained Authorization Services"
+questions:
+  - id: ats091-final-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Explain why a role in a token is not enough"
+    source_readings:
+      - sections/section-010/module-01/course-01-why-roles-are-not-enough.md
+    prompt: "An API must allow deletes only between 08:00 and 18:00. Why can a role in the access token not express this rule alone?"
+    options:
+      - id: a
+        text: "Keycloak never puts roles into an access token."
+        explanation: "Not correct. Keycloak puts realm roles in the claim `realm_access.roles`."
+      - id: b
+        text: "A role says who the user is, not when the request arrives, so the rule needs the time as an input."
+        explanation: "Correct. A role cannot hold the time of the request."
+      - id: c
+        text: "Roles can only be assigned to groups, not to users."
+        explanation: "Not correct. Roles can be assigned to users and to groups."
+      - id: d
+        text: "The access token is encrypted, so the API cannot read the roles."
+        explanation: "Not correct. The payload of the token is only encoded and anyone who holds it can decode it."
+    correct_option: b
+    explanation: "Correct. A role cannot hold the time of the request."
+
+  - id: ats091-final-q02
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain what a permission does"
+    source_readings:
+      - sections/section-010/module-01/course-02-resources-scopes-and-permissions.md
+    prompt: "You create a role policy but no permission uses it. What effect does the policy have on decisions?"
+    options:
+      - id: a
+        text: "It protects every resource of the resource server."
+        explanation: "Not correct. Without a permission it protects nothing."
+      - id: b
+        text: "It protects the resources that have the same name."
+        explanation: "Not correct. Names do not link a policy to a resource."
+      - id: c
+        text: "None. A policy only decides, and a permission must use it to protect anything."
+        explanation: "Correct. Only a permission protects a resource or scope."
+      - id: d
+        text: "It switches the enforcement mode to `ENFORCING`."
+        explanation: "Not correct. A policy does not change the enforcement mode."
+    correct_option: c
+    explanation: "Correct. Only a permission protects a resource or scope."
+
+  - id: ats091-final-q03
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Judge a risky fix for a denial"
+    source_readings:
+      - sections/section-010/module-01/course-03-decision-strategies-and-enforcement-mode.md
+    prompt: "A team switches the policy enforcement mode to `PERMISSIVE` to remove a `403`. What is the main risk?"
+    options:
+      - id: a
+        text: "It deletes all existing permissions."
+        explanation: "Not correct. Existing permissions stay and still decide."
+      - id: b
+        text: "It makes `UNANIMOUS` behave like `CONSENSUS`."
+        explanation: "Not correct. It does not change decision strategies."
+      - id: c
+        text: "It stops Keycloak from issuing tokens."
+        explanation: "Not correct. Token issuing is not affected."
+      - id: d
+        text: "It also grants every request that no permission covers, including scopes added later."
+        explanation: "Correct. The unprotected part of the model opens for everyone."
+    correct_option: d
+    explanation: "Correct. The unprotected part of the model opens for everyone."
+
+  - id: ats091-final-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Write a safe regular expression"
+    source_readings:
+      - sections/section-020/module-01/course-01-identity-policies.md
+    prompt: "The pattern `example\\.com` is used in a regex policy on `email`. What is the weakness?"
+    options:
+      - id: a
+        text: "The dot must not be escaped."
+        explanation: "Not correct. Escaping the dot is right."
+      - id: b
+        text: "Regex policies only accept numbers."
+        explanation: "Not correct. They match claim values as text."
+      - id: c
+        text: "It is not anchored, so it also matches `alice@example.com.attacker.org`."
+        explanation: "Correct. Anchor it with `^` and `$`."
+      - id: d
+        text: "It matches nothing because it has no `@`."
+        explanation: "Not correct. A pattern without anchors matches anywhere in the value."
+    correct_option: c
+    explanation: "Correct. Anchor it with `^` and `$`."
+
+  - id: ats091-final-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Predict an aggregated policy result"
+    source_readings:
+      - sections/section-020/module-01/course-02-time-and-aggregated-policies.md
+    prompt: "`staff-in-business-hours` combines `staff-members` and `business-hours` with `UNANIMOUS`. `bob` is not in `staff`. What does he get at 10:00 UTC?"
+    options:
+      - id: a
+        text: "Grant, because the time policy grants."
+        explanation: "Not correct. `UNANIMOUS` needs both."
+      - id: b
+        text: "Grant, because aggregated policies ignore groups."
+        explanation: "Not correct. The group policy is part of it."
+      - id: c
+        text: "Deny only after 17:00."
+        explanation: "Not correct. The group policy denies at every hour."
+      - id: d
+        text: "Deny, because the group policy denies and both must grant."
+        explanation: "Correct. His result does not depend on the clock."
+    correct_option: d
+    explanation: "Correct. His result does not depend on the clock."
+
+  - id: ats091-final-q06
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Explain the limit of a requesting party token"
+    source_readings:
+      - sections/section-020/module-01/course-04-asking-keycloak-for-a-decision.md
+    prompt: "A policy is changed after `alice` received an RPT. When does the change apply to her requests with that RPT?"
+    options:
+      - id: a
+        text: "Only when she gets a new RPT, because the permissions are fixed when it is issued."
+        explanation: "Correct. Keep RPT lifetimes short."
+      - id: b
+        text: "At once, because the API checks the policy on every request."
+        explanation: "Not correct. An API that reads the RPT does not ask again."
+      - id: c
+        text: "Never, even for a new RPT."
+        explanation: "Not correct. A new RPT is evaluated with the new policy."
+      - id: d
+        text: "When the user logs in to the Account Console."
+        explanation: "Not correct. That does not change an issued RPT."
+    correct_option: a
+    explanation: "Correct. Keep RPT lifetimes short."
+
+  - id: ats091-final-q07
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Say what a permission ticket is"
+    source_readings:
+      - sections/section-030/module-01/course-01-uma-permission-tickets-and-the-rpt.md
+    prompt: "What does a permission ticket contain?"
+    options:
+      - id: a
+        text: "The permissions Keycloak already granted."
+        explanation: "Not correct. That is the RPT."
+      - id: b
+        text: "The password of the user."
+        explanation: "Not correct. Tickets never hold passwords."
+      - id: c
+        text: "The policies of the resource server."
+        explanation: "Not correct. Policies stay in Keycloak."
+      - id: d
+        text: "The resources and scopes that a request needs."
+        explanation: "Correct. It names what is needed and grants nothing."
+    correct_option: d
+    explanation: "Correct. It names what is needed and grants nothing."
+
+  - id: ats091-final-q08
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Create a user-owned resource"
+    source_readings:
+      - sections/section-030/module-01/course-02-user-managed-access.md
+    prompt: "How does a resource server create a resource owned by `alice` that she can share?"
+    options:
+      - id: a
+        text: "With a PAT, through the Protection API, with `owner` set to her user id and `ownerManagedAccess` set to `true`."
+        explanation: "Correct. The owner is a field of the resource."
+      - id: b
+        text: "With `alice`'s token, through the Protection API."
+        explanation: "Not correct. The Protection API needs the PAT."
+      - id: c
+        text: "By adding the role `owner` to `alice`."
+        explanation: "Not correct. Ownership is a resource field, not a role."
+      - id: d
+        text: "By setting the enforcement mode to `PERMISSIVE`."
+        explanation: "Not correct. That opens unprotected resources to everyone."
+    correct_option: a
+    explanation: "Correct. The owner is a field of the resource."
+
+  - id: ats091-final-q09
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Trace a wrong API answer"
+    source_readings:
+      - sections/section-030/module-01/course-03-a-policy-enforcement-point-in-an-api.md
+    prompt: "The API lets `bob` delete. Asking Keycloak directly with the same `audience` and `permission` also returns `200` for `bob`. Where is the fault?"
+    options:
+      - id: a
+        text: "In the API's settings, so change the audience."
+        explanation: "Not correct. The same question gives the same answer, so the API asks correctly."
+      - id: b
+        text: "In the model, so check the permission for `delete` and its policies."
+        explanation: "Correct. Both sides agree, so the model is wrong."
+      - id: c
+        text: "In the user's password."
+        explanation: "Not correct. The password is not part of the decision."
+      - id: d
+        text: "In the API's log format."
+        explanation: "Not correct. Logs show the problem and do not cause it."
+    correct_option: b
+    explanation: "Correct. Both sides agree, so the model is wrong."

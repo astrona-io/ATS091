@@ -1,0 +1,245 @@
+# Knowledge check for section 020. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats091-020
+course_id: ATS091
+exam_code: KEYCLOAK
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-020
+  title: "Policies And Decisions"
+placement:
+  position: after
+  reading: sections/section-020/capstone/labs/lab-01/question.md
+questions:
+  - id: ats091-020-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Describe what a regex policy reads"
+    source_readings:
+      - sections/section-020/module-01/course-01-identity-policies.md
+    prompt: "What does a regex policy match against the regular expression?"
+    options:
+      - id: a
+        text: "The URL path of the request."
+        explanation: "Not correct. It reads a claim, not the path."
+      - id: b
+        text: "The name of the resource."
+        explanation: "Not correct. The resource name is not the target."
+      - id: c
+        text: "The value of one claim of the user's identity, named in Target Claim."
+        explanation: "Correct. For example the claim `email`."
+      - id: d
+        text: "The password of the user."
+        explanation: "Not correct. Policies never read the password."
+    correct_option: c
+    explanation: "Correct. For example the claim `email`."
+
+  - id: ats091-020-q02
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Explain what negative logic does"
+    source_readings:
+      - sections/section-020/module-01/course-01-identity-policies.md
+    prompt: "A group policy for `staff` is set to `NEGATIVE` logic. Who does it grant to?"
+    options:
+      - id: a
+        text: "Only members of `staff`."
+        explanation: "Not correct. That is `POSITIVE` logic."
+      - id: b
+        text: "Nobody."
+        explanation: "Not correct. It grants whenever the group check fails."
+      - id: c
+        text: "Only administrators."
+        explanation: "Not correct. Roles are not part of this check."
+      - id: d
+        text: "Users who are not members of `staff`."
+        explanation: "Correct. `NEGATIVE` turns a grant into a deny and a deny into a grant."
+    correct_option: d
+    explanation: "Correct. `NEGATIVE` turns a grant into a deny and a deny into a grant."
+
+  - id: ats091-020-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Write a safe regular expression"
+    source_readings:
+      - sections/section-020/module-01/course-01-identity-policies.md
+    prompt: "The pattern `example\\.com` is used in a regex policy on `email`. What is the weakness?"
+    options:
+      - id: a
+        text: "It is not anchored, so it also matches `alice@example.com.attacker.org`."
+        explanation: "Correct. Anchor it with `^` and `$`."
+      - id: b
+        text: "The dot must not be escaped."
+        explanation: "Not correct. Escaping the dot is right."
+      - id: c
+        text: "Regex policies only accept numbers."
+        explanation: "Not correct. They match claim values as text."
+      - id: d
+        text: "It matches nothing because it has no `@`."
+        explanation: "Not correct. A pattern without anchors matches anywhere in the value."
+    correct_option: a
+    explanation: "Correct. Anchor it with `^` and `$`."
+
+  - id: ats091-020-q04
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Identify what a client policy checks"
+    source_readings:
+      - sections/section-020/module-01/course-01-identity-policies.md
+    prompt: "What does a client policy check?"
+    options:
+      - id: a
+        text: "The resource server that receives the request."
+        explanation: "Not correct. It checks the client the token was issued to."
+      - id: b
+        text: "The client the user's token was issued to."
+        explanation: "Correct. It does not check the resource server."
+      - id: c
+        text: "The client secret of the resource server."
+        explanation: "Not correct. Secrets are not part of a policy."
+      - id: d
+        text: "The realm of the user."
+        explanation: "Not correct. The realm is not what it checks."
+    correct_option: b
+    explanation: "Correct. It does not check the resource server."
+
+  - id: ats091-020-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Predict a time policy result"
+    source_readings:
+      - sections/section-020/module-01/course-02-time-and-aggregated-policies.md
+    prompt: "A time policy has `hour=8` and `hourEnd=17`. The Keycloak container clock shows 19:00 UTC. What does the policy return?"
+    options:
+      - id: a
+        text: "Grant, because 19:00 is in the evening in every time zone."
+        explanation: "Not correct. The window is 8 to 17 UTC."
+      - id: b
+        text: "Grant, because time policies only check the date."
+        explanation: "Not correct. The hour field is checked."
+      - id: c
+        text: "Deny, because the hour is outside the window and the clock is UTC."
+        explanation: "Correct. Fields are evaluated on the server clock in UTC."
+      - id: d
+        text: "Error, because the hour is above 17."
+        explanation: "Not correct. It gives deny, not an error."
+    correct_option: c
+    explanation: "Correct. Fields are evaluated on the server clock in UTC."
+
+  - id: ats091-020-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Use an expire time"
+    source_readings:
+      - sections/section-020/module-01/course-02-time-and-aggregated-policies.md
+    prompt: "Which field gives a time policy an end date for access, such as a contractor's last day?"
+    options:
+      - id: a
+        text: "`logic`."
+        explanation: "Not correct. `logic` turns the result around."
+      - id: b
+        text: "`dayMonth`."
+        explanation: "Not correct. It sets a day of the month range, not an end instant."
+      - id: c
+        text: "`extendChildren`."
+        explanation: "Not correct. That belongs to group policies."
+      - id: d
+        text: "`notOnOrAfter`."
+        explanation: "Correct. Access stops at that date and time."
+    correct_option: d
+    explanation: "Correct. Access stops at that date and time."
+
+  - id: ats091-020-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Predict an aggregated policy result"
+    source_readings:
+      - sections/section-020/module-01/course-02-time-and-aggregated-policies.md
+    prompt: "`staff-in-business-hours` combines `staff-members` and `business-hours` with `UNANIMOUS`. `bob` is not in `staff`. What does he get at 10:00 UTC?"
+    options:
+      - id: a
+        text: "Deny, because the group policy denies and both must grant."
+        explanation: "Correct. His result does not depend on the clock."
+      - id: b
+        text: "Grant, because the time policy grants."
+        explanation: "Not correct. `UNANIMOUS` needs both."
+      - id: c
+        text: "Grant, because aggregated policies ignore groups."
+        explanation: "Not correct. The group policy is part of it."
+      - id: d
+        text: "Deny only after 17:00."
+        explanation: "Not correct. The group policy denies at every hour."
+    correct_option: a
+    explanation: "Correct. His result does not depend on the clock."
+
+  - id: ats091-020-q08
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain how JavaScript policies are deployed"
+    source_readings:
+      - sections/section-020/module-01/course-03-javascript-policies.md
+    prompt: "How does an administrator deploy a JavaScript policy by default?"
+    options:
+      - id: a
+        text: "Paste the script into the Admin Console policy form."
+        explanation: "Not correct. The console cannot upload scripts by default."
+      - id: b
+        text: "Put the script in a JAR with `META-INF/keycloak-scripts.json`, copy it to `providers/`, run `kc.sh build` and start with the `scripts` feature."
+        explanation: "Correct. Nothing can be uploaded from the Admin Console."
+      - id: c
+        text: "Send the script to the Admin REST API with `kcadm.sh`."
+        explanation: "Not correct. The REST API does not accept scripts either."
+      - id: d
+        text: "Add the script to the user's attributes."
+        explanation: "Not correct. User attributes do not hold policies."
+    correct_option: b
+    explanation: "Correct. Nothing can be uploaded from the Admin Console."
+
+  - id: ats091-020-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Pick the right response mode"
+    source_readings:
+      - sections/section-020/module-01/course-04-asking-keycloak-for-a-decision.md
+    prompt: "A user interface must show only the buttons a user may press. Which `response_mode` fits best?"
+    options:
+      - id: a
+        text: "`decision`, which returns one yes or no."
+        explanation: "Not correct. It answers one question only."
+      - id: b
+        text: "No `response_mode`, because a list is never returned."
+        explanation: "Not correct. Without it the answer is a token."
+      - id: c
+        text: "`permissions`, which lists the resources and scopes that are granted."
+        explanation: "Correct. The list drives the interface."
+      - id: d
+        text: "`audience`, which lists the scopes."
+        explanation: "Not correct. `audience` is not a response mode."
+    correct_option: c
+    explanation: "Correct. The list drives the interface."
+
+  - id: ats091-020-q10
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Explain the limit of a requesting party token"
+    source_readings:
+      - sections/section-020/module-01/course-04-asking-keycloak-for-a-decision.md
+    prompt: "A policy is changed after `alice` received an RPT. When does the change apply to her requests with that RPT?"
+    options:
+      - id: a
+        text: "At once, because the API checks the policy on every request."
+        explanation: "Not correct. An API that reads the RPT does not ask again."
+      - id: b
+        text: "Never, even for a new RPT."
+        explanation: "Not correct. A new RPT is evaluated with the new policy."
+      - id: c
+        text: "When the user logs in to the Account Console."
+        explanation: "Not correct. That does not change an issued RPT."
+      - id: d
+        text: "Only when she gets a new RPT, because the permissions are fixed when it is issued."
+        explanation: "Correct. Keep RPT lifetimes short."
+    correct_option: d
+    explanation: "Correct. Keep RPT lifetimes short."
