@@ -17,7 +17,7 @@ This section covers every policy type Keycloak offers, how to combine policies, 
 
 ## The learning path
 
-The section has one module. It has a landing page, four short parts, a graded lab right after the part it tests, and a summary. The module also has its own playground, and the landing page starts it for you.
+The section has three modules. Each has a landing page, short parts, a graded lab right after the part it tests, and a summary. Each module also has its own playground, and the landing page starts it for you.
 
 ### 1. Write Policies That Decide Access
 
@@ -28,6 +28,24 @@ The playground holds Keycloak with the realm `inventory` and a working, role-bas
 3. JavaScript Policies
 4. Asking Keycloak For A Decision
 5. Summary
+
+### 2. Debug Decisions With The Evaluation Tool
+
+The playground holds the model with an aggregated policy on the delete permission, and a third user, `dana`, who is a manager outside the group `staff`.
+
+1. Ask The Evaluation Tool For A Result
+2. Find The Policy That Denies, followed by the lab **Find The Policy That Denies With The Evaluation Tool**
+3. Ask What-If Questions
+4. Evaluate All Permissions Of A User
+5. Summary
+
+### 3. Decide By Client And Client Scope
+
+The playground holds the model on `inventory-api`, the clients `inventory-cli` and `reports-cli` and the client scope `inventory-write`.
+
+1. Client Policies, followed by the lab **Allow Only One Client To Export**
+2. Client Scope Policies
+3. Summary
 
 ## Section capstone: Fix A Policy Set That Decides For The Wrong Users
 

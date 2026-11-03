@@ -1,0 +1,52 @@
+# Register A Resource And Revoke One Scope
+# Astrona graded lab. Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-091-lab-030-02"
+  docs:
+    guide: "solution.md"
+    solution: "solution.md"
+    question: "question.md"
+    examQuestion: "question.md"
+    prerequisites: "prerequisites.md"
+bootstrap:
+  init:
+    - name: "deploy-keycloak"
+      description: "Deploys Keycloak 26.8.1 and the tester pod, and creates the inventory realm, users, roles, group and clients"
+      type: "file"
+      source: "bootstrap/01-deploy-keycloak.sh"
+    - name: "ats-091-lab-030-02-setup"
+      description: "Builds the model and shares alice-shelf with bob for view and edit"
+      type: "file"
+      source: "bootstrap/02-seed-state.sh"
+testing:
+  init:
+    - name: "wait-for-keycloak"
+      description: "Waits until Keycloak answers and kcadm.sh can sign in"
+      type: "file"
+      source: "testing/wait-for-keycloak.sh"
+    - name: "reference-solution"
+      description: "Registers alice-notes and deletes the edit ticket; used by `astrona test`"
+      type: "file"
+      source: "solution/apply.sh"
+validation:
+  scripts:
+    - name: "validate-notes-registered"
+      description: "Confirms alice-notes is registered, alice may view it and bob may not"
+      type: "file"
+      source: "validation/validate-notes-registered.sh"
+    - name: "validate-sharing-reduced"
+      description: "Confirms bob keeps view and loses edit on alice-shelf"
+      type: "file"
+      source: "validation/validate-sharing-reduced.sh"
+    - name: "validate-view-ticket-kept"
+      description: "Confirms only the view ticket for bob is left"
+      type: "file"
+      source: "validation/validate-view-ticket-kept.sh"
+teardown:
+  keepCluster: false
+runtime:
+  kind:
+    preloadImages:
+      - nicolaka/netshoot:v0.13
+      - quay.io/keycloak/keycloak:26.8.1

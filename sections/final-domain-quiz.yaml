@@ -451,3 +451,210 @@ questions:
     explanation: Not correct. The mode does not decide `401`.
   correct_option: a
   explanation: Correct. `403` is the answer for a denial.
+- id: ats091-final-q20
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Name the owner of an admin-created resource
+  source_readings:
+  - sections/section-010/module-03/course-01-describe-a-resource.md
+  prompt: Who owns a resource that you create with `kcadm.sh`?
+  options:
+  - id: a
+    text: The administrator user.
+    explanation: Not correct. This is not what the part teaches.
+  - id: b
+    text: The resource server.
+    explanation: Correct. The owner is a user only when the resource server registers
+      it for a user.
+  - id: c
+    text: The realm `master`.
+    explanation: Not correct. This is not what the part teaches.
+  - id: d
+    text: Nobody; the field is empty.
+    explanation: Not correct. This is not what the part teaches.
+  correct_option: b
+  explanation: Correct. The owner is a user only when the resource server registers
+    it for a user.
+- id: ats091-final-q21
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Find the cause of a miss
+  source_readings:
+  - sections/section-010/module-03/course-02-types-and-resource-type-permissions.md
+  prompt: A permission for the type `shelf` covers two shelves and misses a third.
+    What is the likeliest cause?
+  options:
+  - id: a
+    text: The policy of the permission is a role policy.
+    explanation: Not correct. This is not what the part teaches.
+  - id: b
+    text: The third resource has no type or another type.
+    explanation: Correct. The permission finds resources by type.
+  - id: c
+    text: The third resource has no scopes.
+    explanation: Not correct. This is not what the part teaches.
+  - id: d
+    text: The decision strategy is `UNANIMOUS`.
+    explanation: Not correct. This is not what the part teaches.
+  correct_option: b
+  explanation: Correct. The permission finds resources by type.
+- id: ats091-final-q22
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Choose the permission kind
+  source_readings:
+  - sections/section-010/module-03/course-03-resource-permissions-and-scope-permissions.md
+  prompt: An API has `view`, `edit` and `delete`, and viewers may only view. Which
+    permission is the safe choice?
+  options:
+  - id: a
+    text: A resource-based permission with the viewer policy.
+    explanation: Not correct. This is not what the part teaches.
+  - id: b
+    text: A permission with the decision strategy `AFFIRMATIVE`.
+    explanation: Not correct. This is not what the part teaches.
+  - id: c
+    text: A resource-based permission with logic `NEGATIVE`.
+    explanation: Not correct. This is not what the part teaches.
+  - id: d
+    text: A scope-based permission that names `view`.
+    explanation: Correct. A scope that no permission names is denied.
+  correct_option: d
+  explanation: Correct. A scope that no permission names is denied.
+- id: ats091-final-q23
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Read a split decision
+  source_readings:
+  - sections/section-020/module-03/course-01-client-policies.md
+  prompt: The same user is granted from `reports-cli` and denied from `inventory-cli`
+    by a client policy. Why?
+  options:
+  - id: a
+    text: The user lost a role between the requests.
+    explanation: Not correct. This is not what the part teaches.
+  - id: b
+    text: The policy checks the client, and only `reports-cli` is listed.
+    explanation: Correct. The person and the roles are the same in both requests.
+  - id: c
+    text: The enforcement mode changed.
+    explanation: Not correct. This is not what the part teaches.
+  - id: d
+    text: The permission has the strategy `CONSENSUS`.
+    explanation: Not correct. This is not what the part teaches.
+  correct_option: b
+  explanation: Correct. The person and the roles are the same in both requests.
+- id: ats091-final-q24
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Know when an optional scope is in the token
+  source_readings:
+  - sections/section-020/module-03/course-02-client-scope-policies.md
+  prompt: When does a token carry an optional client scope?
+  options:
+  - id: a
+    text: In every token of the client.
+    explanation: Not correct. This is not what the part teaches.
+  - id: b
+    text: When the token request names it in the `scope` parameter.
+    explanation: Correct. A default scope is in every token.
+  - id: c
+    text: Only after an administrator logs in.
+    explanation: Not correct. This is not what the part teaches.
+  - id: d
+    text: Only for confidential clients.
+    explanation: Not correct. This is not what the part teaches.
+  correct_option: b
+  explanation: Correct. A default scope is in every token.
+- id: ats091-final-q25
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Choose the policy type
+  source_readings:
+  - sections/section-020/module-03/course-02-client-scope-policies.md
+  prompt: A rule says "only requests that ask for the scope `inventory-write` may
+    post". Which policy type fits?
+  options:
+  - id: a
+    text: A role policy.
+    explanation: Not correct. This is not what the part teaches.
+  - id: b
+    text: A time policy.
+    explanation: Not correct. This is not what the part teaches.
+  - id: c
+    text: A group policy.
+    explanation: Not correct. This is not what the part teaches.
+  - id: d
+    text: A client scope policy.
+    explanation: Correct. The rule is about what the request asked for.
+  correct_option: d
+  explanation: Correct. The rule is about what the request asked for.
+- id: ats091-final-q26
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Know what PUT does
+  source_readings:
+  - sections/section-030/module-02/course-01-register-read-and-delete-resources.md
+  prompt: What does a PUT request on a resource in the Protection API do?
+  options:
+  - id: a
+    text: It adds the new fields and keeps the old ones.
+    explanation: Not correct. This is not what the part teaches.
+  - id: b
+    text: It deletes the resource and its owner.
+    explanation: Not correct. This is not what the part teaches.
+  - id: c
+    text: It only changes the name of the resource.
+    explanation: Not correct. This is not what the part teaches.
+  - id: d
+    text: It replaces the stored resource with the body of the request.
+    explanation: Correct. Send the full resource, not only the changed field.
+  correct_option: d
+  explanation: Correct. Send the full resource, not only the changed field.
+- id: ats091-final-q27
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Revoke one scope
+  source_readings:
+  - sections/section-030/module-02/course-03-read-and-revoke-sharing.md
+  prompt: Bob may view and edit a shared resource. How do you remove only `edit`?
+  options:
+  - id: a
+    text: Delete the resource and register it again.
+    explanation: Not correct. This is not what the part teaches.
+  - id: b
+    text: Delete both permission tickets.
+    explanation: Not correct. This is not what the part teaches.
+  - id: c
+    text: Remove the role of bob in the realm.
+    explanation: Not correct. This is not what the part teaches.
+  - id: d
+    text: Delete the permission ticket for `edit` and keep the one for `view`.
+    explanation: Correct. The sharing lives in the tickets, one per scope.
+  correct_option: d
+  explanation: Correct. The sharing lives in the tickets, one per scope.
+- id: ats091-final-q28
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Name the enforcement mode field
+  source_readings:
+  - sections/section-030/module-02/course-04-configure-the-policy-enforcer.md
+  prompt: Which field of the policy enforcer sets what happens to a path with no matching
+    permission?
+  options:
+  - id: a
+    text: http-method-as-scope
+    explanation: Not correct. This is not what the part teaches.
+  - id: b
+    text: path-cache
+    explanation: Not correct. This is not what the part teaches.
+  - id: c
+    text: on-deny-redirect-to
+    explanation: Not correct. This is not what the part teaches.
+  - id: d
+    text: enforcement-mode
+    explanation: Correct. `ENFORCING` denies, `PERMISSIVE` allows and `DISABLED` allows
+      everything.
+  correct_option: d
+  explanation: Correct. `ENFORCING` denies, `PERMISSIVE` allows and `DISABLED` allows
+    everything.

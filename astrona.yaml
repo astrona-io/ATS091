@@ -146,6 +146,43 @@ modules:
         path: sections/section-010/module-02/course-06-summary.md
 
       - type: reading
+        title: "Model Resources In Depth"
+        path: sections/section-010/module-03/course.md
+      - type: reading
+        title: "Describe A Resource"
+        path: sections/section-010/module-03/course-01-describe-a-resource.md
+      - type: reading
+        title: "Types And Resource-Type Permissions"
+        path: sections/section-010/module-03/course-02-types-and-resource-type-permissions.md
+      - type: reading
+        title: Question
+        path: sections/section-010/module-03/labs/lab-01/question.md
+      - type: lab
+        title: "Fix A Resource That No Permission Covers Lab"
+        path: sections/section-010/module-03/labs/lab-01
+        difficulty: beginner
+        estimated_duration: 15m
+        topic: authorization-model
+        task_kind: troubleshooting
+        tags: [resources, resource-permission, scope-permission, kcadm, admin-rest-api]
+        learning_goals:
+          - Explain why a resource-type permission misses a resource with no type
+          - Fix the type of a resource instead of adding a permission
+          - Prove the change with decision requests, including one that must stay denied
+        resources:
+          - name: "Authorization Services Guide: resource management"
+            url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_resource_overview
+      - type: reading
+        title: "Resource Permissions And Scope Permissions"
+        path: sections/section-010/module-03/course-03-resource-permissions-and-scope-permissions.md
+      - type: reading
+        title: "Owners And Owner-Managed Access"
+        path: sections/section-010/module-03/course-04-owners-and-owner-managed-access.md
+      - type: reading
+        title: Summary
+        path: sections/section-010/module-03/course-05-summary.md
+
+      - type: reading
         title: Question
         path: sections/section-010/capstone/labs/lab-01/question.md
       - type: lab
@@ -225,6 +262,74 @@ modules:
         path: sections/section-020/module-01/course-05-summary.md
 
       - type: reading
+        title: "Debug Decisions With The Evaluation Tool"
+        path: sections/section-020/module-02/course.md
+      - type: reading
+        title: "Ask The Evaluation Tool For A Result"
+        path: sections/section-020/module-02/course-01-ask-the-evaluation-tool-for-a-result.md
+      - type: reading
+        title: "Find The Policy That Denies"
+        path: sections/section-020/module-02/course-02-find-the-policy-that-denies.md
+      - type: reading
+        title: Question
+        path: sections/section-020/module-02/labs/lab-01/question.md
+      - type: lab
+        title: "Find The Policy That Denies With The Evaluation Tool Lab"
+        path: sections/section-020/module-02/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 20m
+        topic: decisions
+        task_kind: troubleshooting
+        tags: [decision-request, aggregated-policy, group-policy, role-policy, admin-rest-api, kcadm]
+        learning_goals:
+          - Send an evaluation request and read the status of each permission and policy
+          - Find the lowest policy in an aggregated policy that denies a user
+          - Fix the cause without changing the permission, the policies or the roles
+        resources:
+          - name: "Authorization Services Guide: policy evaluation tool"
+            url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_policy_evaluation_tool
+      - type: reading
+        title: "Ask What-If Questions"
+        path: sections/section-020/module-02/course-03-ask-what-if-questions.md
+      - type: reading
+        title: "Evaluate All Permissions Of A User"
+        path: sections/section-020/module-02/course-04-evaluate-all-permissions-of-a-user.md
+      - type: reading
+        title: Summary
+        path: sections/section-020/module-02/course-05-summary.md
+
+      - type: reading
+        title: "Decide By Client And Client Scope"
+        path: sections/section-020/module-03/course.md
+      - type: reading
+        title: "Client Policies"
+        path: sections/section-020/module-03/course-01-client-policies.md
+      - type: reading
+        title: Question
+        path: sections/section-020/module-03/labs/lab-01/question.md
+      - type: lab
+        title: "Allow Only One Client To Export Lab"
+        path: sections/section-020/module-03/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 20m
+        topic: policies
+        task_kind: build
+        tags: [client-policy, scope-permission, decision-request, kcadm, admin-rest-api]
+        learning_goals:
+          - Create a client policy from the internal id of a client
+          - Attach the policy to a scope permission
+          - Prove that the same user is granted from one client and denied from another
+        resources:
+          - name: "Authorization Services Guide: client policy"
+            url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_policy_client
+      - type: reading
+        title: "Client Scope Policies"
+        path: sections/section-020/module-03/course-02-client-scope-policies.md
+      - type: reading
+        title: Summary
+        path: sections/section-020/module-03/course-03-summary.md
+
+      - type: reading
         title: Question
         path: sections/section-020/capstone/labs/lab-01/question.md
       - type: lab
@@ -299,6 +404,43 @@ modules:
       - type: reading
         title: Summary
         path: sections/section-030/module-01/course-04-summary.md
+
+      - type: reading
+        title: "Manage Resources With The Protection API"
+        path: sections/section-030/module-02/course.md
+      - type: reading
+        title: "Register, Read And Delete Resources"
+        path: sections/section-030/module-02/course-01-register-read-and-delete-resources.md
+      - type: reading
+        title: "Find Resources With Query Parameters"
+        path: sections/section-030/module-02/course-02-find-resources-with-query-parameters.md
+      - type: reading
+        title: "Read And Revoke Sharing"
+        path: sections/section-030/module-02/course-03-read-and-revoke-sharing.md
+      - type: reading
+        title: Question
+        path: sections/section-030/module-02/labs/lab-01/question.md
+      - type: lab
+        title: "Register A Resource And Revoke One Scope Lab"
+        path: sections/section-030/module-02/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 20m
+        topic: uma
+        task_kind: build
+        tags: [pat, permission-ticket, user-managed-access, kcadm, admin-rest-api]
+        learning_goals:
+          - Get a protection API token with the client credentials grant
+          - Register a resource owned by a user with the Protection API
+          - Revoke one shared scope by deleting its permission ticket
+        resources:
+          - name: "Authorization Services Guide: Protection API"
+            url: https://www.keycloak.org/docs/latest/authorization_services/index.html#_service_protection_api
+      - type: reading
+        title: "Configure The Policy Enforcer"
+        path: sections/section-030/module-02/course-04-configure-the-policy-enforcer.md
+      - type: reading
+        title: Summary
+        path: sections/section-030/module-02/course-05-summary.md
 
       - type: reading
         title: Question

@@ -1,0 +1,52 @@
+# Fix A Resource That No Permission Covers
+# Astrona graded lab. Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-091-lab-010-03"
+  docs:
+    guide: "solution.md"
+    solution: "solution.md"
+    question: "question.md"
+    examQuestion: "question.md"
+    prerequisites: "prerequisites.md"
+bootstrap:
+  init:
+    - name: "deploy-keycloak"
+      description: "Deploys Keycloak 26.8.1 and the tester pod, and creates the inventory realm, users, roles, group and clients"
+      type: "file"
+      source: "bootstrap/01-deploy-keycloak.sh"
+    - name: "ats-091-lab-010-03-setup"
+      description: "Builds the model, four resources and the permission view-shelves"
+      type: "file"
+      source: "bootstrap/02-seed-state.sh"
+testing:
+  init:
+    - name: "wait-for-keycloak"
+      description: "Waits until Keycloak answers and kcadm.sh can sign in"
+      type: "file"
+      source: "testing/wait-for-keycloak.sh"
+    - name: "reference-solution"
+      description: "Sets the type of shelf-c; used by `astrona test`"
+      type: "file"
+      source: "solution/apply.sh"
+validation:
+  scripts:
+    - name: "validate-shelf-c-granted"
+      description: "Confirms bob may use the shelves and not the vault"
+      type: "file"
+      source: "validation/validate-shelf-c-granted.sh"
+    - name: "validate-type-fixed"
+      description: "Confirms shelf-c has the type of the other shelves"
+      type: "file"
+      source: "validation/validate-type-fixed.sh"
+    - name: "validate-permissions-unchanged"
+      description: "Confirms no permission was added, removed or changed"
+      type: "file"
+      source: "validation/validate-permissions-unchanged.sh"
+teardown:
+  keepCluster: false
+runtime:
+  kind:
+    preloadImages:
+      - nicolaka/netshoot:v0.13
+      - quay.io/keycloak/keycloak:26.8.1

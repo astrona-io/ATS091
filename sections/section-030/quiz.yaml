@@ -243,3 +243,233 @@ questions:
         explanation: "Not correct. Logs show the problem and do not cause it."
     correct_option: b
     explanation: "Correct. Both sides agree, so the model is wrong."
+
+  - id: ats091-030-q11
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Name the resource registration path"
+    source_readings:
+      - sections/section-030/module-02/course-01-register-read-and-delete-resources.md
+    prompt: "Which path registers a resource with the Protection API?"
+    options:
+      - id: a
+        text: "A POST request to `/realms/inventory/protocol/openid-connect/token`."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "A POST request to `/admin/realms/inventory/resource_set`."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "A PUT request to `/realms/inventory/account/resources`."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "A POST request to `/realms/inventory/authz/protection/resource_set`."
+        explanation: "Correct. The Protection API keeps resources under `resource_set`."
+    correct_option: d
+    explanation: "Correct. The Protection API keeps resources under `resource_set`."
+
+  - id: ats091-030-q12
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Get a protection API token"
+    source_readings:
+      - sections/section-030/module-02/course-01-register-read-and-delete-resources.md
+    prompt: "How does a resource server get a token for the Protection API?"
+    options:
+      - id: a
+        text: "With the password grant of a user."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "With the client credentials grant, using its client id and secret."
+        explanation: "Correct. The token belongs to the resource server service account."
+      - id: c
+        text: "With the authorization code flow of the owner."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "With the permission ticket of a requester."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. The token belongs to the resource server service account."
+
+  - id: ats091-030-q13
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Know what PUT does"
+    source_readings:
+      - sections/section-030/module-02/course-01-register-read-and-delete-resources.md
+    prompt: "What does a PUT request on a resource in the Protection API do?"
+    options:
+      - id: a
+        text: "It adds the new fields and keeps the old ones."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "It deletes the resource and its owner."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "It only changes the name of the resource."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "It replaces the stored resource with the body of the request."
+        explanation: "Correct. Send the full resource, not only the changed field."
+    correct_option: d
+    explanation: "Correct. Send the full resource, not only the changed field."
+
+  - id: ats091-030-q14
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Search by exact name"
+    source_readings:
+      - sections/section-030/module-02/course-02-find-resources-with-query-parameters.md
+    prompt: "Which query parameter makes the search by `name` match the whole name?"
+    options:
+      - id: a
+        text: "deep=true"
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "exactName=true"
+        explanation: "Correct. Without it, the search matches part of the name."
+      - id: c
+        text: "exact=name"
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "strict=true"
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. Without it, the search matches part of the name."
+
+  - id: ats091-030-q15
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Read the default list"
+    source_readings:
+      - sections/section-030/module-02/course-02-find-resources-with-query-parameters.md
+    prompt: "What does a GET on `resource_set` return by default?"
+    options:
+      - id: a
+        text: "A list of full resource objects."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "A list of user ids."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "A list of permission tickets."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "A list of resource ids."
+        explanation: "Correct. The `deep` parameter changes the answer to full objects."
+    correct_option: d
+    explanation: "Correct. The `deep` parameter changes the answer to full objects."
+
+  - id: ats091-030-q16
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Read the sharing of a resource"
+    source_readings:
+      - sections/section-030/module-02/course-03-read-and-revoke-sharing.md
+    prompt: "Which request lists the permission tickets of one resource?"
+    options:
+      - id: a
+        text: "A GET on `resource_set` with the query parameter `owner`."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "A GET on `permission/ticket` with the query parameter `resourceId`."
+        explanation: "Correct. Each ticket names a requester and a scope."
+      - id: c
+        text: "A GET on `policy/evaluate` with the resource name."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "A GET on `token` with the response mode `permissions`."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. Each ticket names a requester and a scope."
+
+  - id: ats091-030-q17
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Revoke one scope"
+    source_readings:
+      - sections/section-030/module-02/course-03-read-and-revoke-sharing.md
+    prompt: "Bob may view and edit a shared resource. How do you remove only `edit`?"
+    options:
+      - id: a
+        text: "Delete the resource and register it again."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "Delete both permission tickets."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "Remove the role of bob in the realm."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "Delete the permission ticket for `edit` and keep the one for `view`."
+        explanation: "Correct. The sharing lives in the tickets, one per scope."
+    correct_option: d
+    explanation: "Correct. The sharing lives in the tickets, one per scope."
+
+  - id: ats091-030-q18
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Know the realm setting"
+    source_readings:
+      - sections/section-030/module-02/course-03-read-and-revoke-sharing.md
+    prompt: "Which realm setting must be on for owners to share resources?"
+    options:
+      - id: a
+        text: "Registration allowed."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "User-managed access (`userManagedAccessAllowed`)."
+        explanation: "Correct. Without it, owners cannot manage access to their resources."
+      - id: c
+        text: "Login with email."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "Brute force detection."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. Without it, owners cannot manage access to their resources."
+
+  - id: ats091-030-q19
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Name the enforcement mode field"
+    source_readings:
+      - sections/section-030/module-02/course-04-configure-the-policy-enforcer.md
+    prompt: "Which field of the policy enforcer sets what happens to a path with no matching permission?"
+    options:
+      - id: a
+        text: "http-method-as-scope"
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "path-cache"
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "on-deny-redirect-to"
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "enforcement-mode"
+        explanation: "Correct. `ENFORCING` denies, `PERMISSIVE` allows and `DISABLED` allows everything."
+    correct_option: d
+    explanation: "Correct. `ENFORCING` denies, `PERMISSIVE` allows and `DISABLED` allows everything."
+
+  - id: ats091-030-q20
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Map a method to a scope"
+    source_readings:
+      - sections/section-030/module-02/course-04-configure-the-policy-enforcer.md
+    prompt: "What does `http-method-as-scope` do?"
+    options:
+      - id: a
+        text: "It turns every request into a GET request."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "It uses the HTTP method of the request as the scope that the enforcer asks for."
+        explanation: "Correct. The enforcer builds the permission request from the method and the path."
+      - id: c
+        text: "It caches the decision for each method."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "It redirects denied methods to a login page."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. The enforcer builds the permission request from the method and the path."

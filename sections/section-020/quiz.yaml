@@ -243,3 +243,463 @@ questions:
         explanation: "Correct. Keep RPT lifetimes short."
     correct_option: d
     explanation: "Correct. Keep RPT lifetimes short."
+
+  - id: ats091-020-q11
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Name the evaluation tool path"
+    source_readings:
+      - sections/section-020/module-02/course-01-ask-the-evaluation-tool-for-a-result.md
+    prompt: "Which Admin REST API path under a resource server runs the evaluation tool?"
+    options:
+      - id: a
+        text: "policy/test"
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "settings/evaluate"
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "permission/check"
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "policy/evaluate"
+        explanation: "Correct. The Evaluate tab of the Admin Console calls `policy/evaluate`."
+    correct_option: d
+    explanation: "Correct. The Evaluate tab of the Admin Console calls `policy/evaluate`."
+
+  - id: ats091-020-q12
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Name the ids an evaluation request needs"
+    source_readings:
+      - sections/section-020/module-02/course-01-ask-the-evaluation-tool-for-a-result.md
+    prompt: "What kind of values do `userId` and `clientId` hold in an evaluation request?"
+    options:
+      - id: a
+        text: "User names and client names."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "Keycloak internal ids, not names."
+        explanation: "Correct. The request uses internal ids."
+      - id: c
+        text: "Email addresses and client secrets."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "Access tokens of the user and the client."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. The request uses internal ids."
+
+  - id: ats091-020-q13
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "State what the tool proves"
+    source_readings:
+      - sections/section-020/module-02/course-01-ask-the-evaluation-tool-for-a-result.md
+    prompt: "What does a `PERMIT` from the evaluation tool prove?"
+    options:
+      - id: a
+        text: "That the API returns the item to the user."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "That the token of the user is valid."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "That the client is allowed to log in."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "That the model grants the request. It does not prove the API enforces it."
+        explanation: "Correct. The tool evaluates policies only."
+    correct_option: d
+    explanation: "Correct. The tool evaluates policies only."
+
+  - id: ats091-020-q14
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Find the cause of a denial"
+    source_readings:
+      - sections/section-020/module-02/course-02-find-the-policy-that-denies.md
+    prompt: "An aggregated policy with the strategy `UNANIMOUS` is `DENY`. One inner policy is `PERMIT` and one is `DENY`. Which policy is the cause?"
+    options:
+      - id: a
+        text: "The inner policy that is `PERMIT`."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "The inner policy that is `DENY`."
+        explanation: "Correct. With `UNANIMOUS`, one `DENY` denies the tree."
+      - id: c
+        text: "The permission that uses the aggregated policy."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "The resource that the permission protects."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. With `UNANIMOUS`, one `DENY` denies the tree."
+
+  - id: ats091-020-q15
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Choose the right fix"
+    source_readings:
+      - sections/section-020/module-02/course-02-find-the-policy-that-denies.md
+    prompt: "A manager outside the group `staff` is denied by the group policy `staff-only`. Which fix keeps the rule?"
+    options:
+      - id: a
+        text: "Remove `staff-only` from the aggregated policy."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "Set the enforcement mode to `PERMISSIVE`."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "Delete the permission and create it again."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "Add the user to the group `staff`."
+        explanation: "Correct. Fix the fact that is wrong, not the rule."
+    correct_option: d
+    explanation: "Correct. Fix the fact that is wrong, not the rule."
+
+  - id: ats091-020-q16
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Use roleIds"
+    source_readings:
+      - sections/section-020/module-02/course-03-ask-what-if-questions.md
+    prompt: "What does the field `roleIds` do in an evaluation request?"
+    options:
+      - id: a
+        text: "It assigns the roles to the user in the realm."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "It evaluates the user with extra roles for this one evaluation."
+        explanation: "Correct. Nothing in the realm changes."
+      - id: c
+        text: "It removes all other roles from the user."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "It creates the roles in the realm."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. Nothing in the realm changes."
+
+  - id: ats091-020-q17
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Test a time policy without waiting"
+    source_readings:
+      - sections/section-020/module-02/course-03-ask-what-if-questions.md
+    prompt: "How do you test what a time policy decides at three in the morning?"
+    options:
+      - id: a
+        text: "Change the clock of the Keycloak pod."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "Delete the time policy and create it again."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "Use the password grant at night."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "Set the context attribute `kc.time.date_time` in the evaluation request."
+        explanation: "Correct. The context moves the clock for this one evaluation."
+    correct_option: d
+    explanation: "Correct. The context moves the clock for this one evaluation."
+
+  - id: ats091-020-q18
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Ask for all permissions"
+    source_readings:
+      - sections/section-020/module-02/course-04-evaluate-all-permissions-of-a-user.md
+    prompt: "Which field makes the evaluation tool list every permission of a user?"
+    options:
+      - id: a
+        text: "response_mode set to `decision`"
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "entitlements set to `true`"
+        explanation: "Correct. The tool returns the permissions an RPT would carry."
+      - id: c
+        text: "audience set to `inventory-api`"
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "roleIds set to an empty list"
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. The tool returns the permissions an RPT would carry."
+
+  - id: ats091-020-q19
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Debug a difference"
+    source_readings:
+      - sections/section-020/module-02/course-04-evaluate-all-permissions-of-a-user.md
+    prompt: "The evaluation grants but a live request is denied. Which check comes first?"
+    options:
+      - id: a
+        text: "The logic of every policy."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "The number of users in the realm."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "The size of the settings file."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "The `audience` and the token of the live request."
+        explanation: "Correct. Different inputs, not different policies, explain the difference."
+    correct_option: d
+    explanation: "Correct. Different inputs, not different policies, explain the difference."
+
+  - id: ats091-020-q20
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Identify who can use the tool"
+    source_readings:
+      - sections/section-020/module-02/course-04-evaluate-all-permissions-of-a-user.md
+    prompt: "Who can send a request to the evaluation tool?"
+    options:
+      - id: a
+        text: "Only the user whose permissions are evaluated."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "An administrator who can manage the realm, with a user id."
+        explanation: "Correct. The tool needs administrator access, not the token of the user."
+      - id: c
+        text: "Any client with a valid user token."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "Only the resource server service account."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. The tool needs administrator access, not the token of the user."
+
+  - id: ats091-020-q21
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Say what a client policy checks"
+    source_readings:
+      - sections/section-020/module-03/course-01-client-policies.md
+    prompt: "What does a client policy check?"
+    options:
+      - id: a
+        text: "The roles of the user."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "The client application that sent the request."
+        explanation: "Correct. The client is in the claim `azp` of the token."
+      - id: c
+        text: "The time of the request."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "The groups of the user."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. The client is in the claim `azp` of the token."
+
+  - id: ats091-020-q22
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Name the value it takes"
+    source_readings:
+      - sections/section-020/module-03/course-01-client-policies.md
+    prompt: "Which kind of value does a client policy list in `clients`?"
+    options:
+      - id: a
+        text: "Client names."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "Client secrets."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "Redirect URIs."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "Internal ids of clients."
+        explanation: "Correct. Use the internal id, not the client ID text."
+    correct_option: d
+    explanation: "Correct. Use the internal id, not the client ID text."
+
+  - id: ats091-020-q23
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Read a split decision"
+    source_readings:
+      - sections/section-020/module-03/course-01-client-policies.md
+    prompt: "The same user is granted from `reports-cli` and denied from `inventory-cli` by a client policy. Why?"
+    options:
+      - id: a
+        text: "The user lost a role between the requests."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "The policy checks the client, and only `reports-cli` is listed."
+        explanation: "Correct. The person and the roles are the same in both requests."
+      - id: c
+        text: "The enforcement mode changed."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "The permission has the strategy `CONSENSUS`."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. The person and the roles are the same in both requests."
+
+  - id: ats091-020-q24
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Know the missing check"
+    source_readings:
+      - sections/section-020/module-03/course-01-client-policies.md
+    prompt: "What does a client policy alone not check?"
+    options:
+      - id: a
+        text: "Which client sent the request."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "Whether the policy is used by a permission."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "Whether the token is signed."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "Who the user is."
+        explanation: "Correct. Add a role or user policy in an aggregated policy if the person matters."
+    correct_option: d
+    explanation: "Correct. Add a role or user policy in an aggregated policy if the person matters."
+
+  - id: ats091-020-q25
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Prove a client rule"
+    source_readings:
+      - sections/section-020/module-03/course-01-client-policies.md
+    prompt: "Which proof shows that a client rule works?"
+    options:
+      - id: a
+        text: "A decision from the allowed client only."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "A decision from an allowed client and one from a client that must be denied."
+        explanation: "Correct. Both sides of the rule need a request."
+      - id: c
+        text: "A decision for a second user from the same client."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "A list of the policies in the realm."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. Both sides of the rule need a request."
+
+  - id: ats091-020-q26
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Say what a client scope policy checks"
+    source_readings:
+      - sections/section-020/module-03/course-02-client-scope-policies.md
+    prompt: "What does a client scope policy check?"
+    options:
+      - id: a
+        text: "Whether the user has the listed roles."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "Whether the resource has the listed scopes."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "Whether the client is confidential."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "Whether the token carries the listed client scopes."
+        explanation: "Correct. It reads the scopes of the request."
+    correct_option: d
+    explanation: "Correct. It reads the scopes of the request."
+
+  - id: ats091-020-q27
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Know when an optional scope is in the token"
+    source_readings:
+      - sections/section-020/module-03/course-02-client-scope-policies.md
+    prompt: "When does a token carry an optional client scope?"
+    options:
+      - id: a
+        text: "In every token of the client."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "When the token request names it in the `scope` parameter."
+        explanation: "Correct. A default scope is in every token."
+      - id: c
+        text: "Only after an administrator logs in."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "Only for confidential clients."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. A default scope is in every token."
+
+  - id: ats091-020-q28
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Spot the default scope fault"
+    source_readings:
+      - sections/section-020/module-03/course-02-client-scope-policies.md
+    prompt: "A client scope policy always grants. The scope was added to the client as a default scope. Why does it always grant?"
+    options:
+      - id: a
+        text: "The policy ignores the scope."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "The permission is resource-based."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "The user has the role `inventory-manager`."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "Every token carries a default scope."
+        explanation: "Correct. Use an optional scope when the request must ask for it."
+    correct_option: d
+    explanation: "Correct. Use an optional scope when the request must ask for it."
+
+  - id: ats091-020-q29
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Understand required"
+    source_readings:
+      - sections/section-020/module-03/course-02-client-scope-policies.md
+    prompt: "What does `required` set to `false` mean for an entry in a client scope policy?"
+    options:
+      - id: a
+        text: "The scope must be in every token."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "The scope is not needed for the policy to grant."
+        explanation: "Correct. With `true`, the scope must be present."
+      - id: c
+        text: "The policy denies when the scope is missing."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "The policy is disabled."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. With `true`, the scope must be present."
+
+  - id: ats091-020-q30
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Choose the policy type"
+    source_readings:
+      - sections/section-020/module-03/course-02-client-scope-policies.md
+    prompt: "A rule says \"only requests that ask for the scope `inventory-write` may post\". Which policy type fits?"
+    options:
+      - id: a
+        text: "A role policy."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "A time policy."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "A group policy."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "A client scope policy."
+        explanation: "Correct. The rule is about what the request asked for."
+    correct_option: d
+    explanation: "Correct. The rule is about what the request asked for."

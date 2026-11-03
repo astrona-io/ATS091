@@ -473,3 +473,233 @@ questions:
         explanation: "Not correct. This is not what the part teaches."
     correct_option: b
     explanation: "Correct. A copy is faithful when the same questions give the same answers."
+
+  - id: ats091-010-q21
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Name the required field"
+    source_readings:
+      - sections/section-010/module-03/course-01-describe-a-resource.md
+    prompt: "Which field of a resource is required?"
+    options:
+      - id: a
+        text: "type"
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "name"
+        explanation: "Correct. Every other field is optional."
+      - id: c
+        text: "uris"
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "owner"
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. Every other field is optional."
+
+  - id: ats091-010-q22
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Read an attribute"
+    source_readings:
+      - sections/section-010/module-03/course-01-describe-a-resource.md
+    prompt: "What does the value of a resource attribute look like in the Admin REST API?"
+    options:
+      - id: a
+        text: "A single string."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "A number."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "A nested policy."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "A list of values."
+        explanation: "Correct. An attribute can have several values."
+    correct_option: d
+    explanation: "Correct. An attribute can have several values."
+
+  - id: ats091-010-q23
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Name the owner of an admin-created resource"
+    source_readings:
+      - sections/section-010/module-03/course-01-describe-a-resource.md
+    prompt: "Who owns a resource that you create with `kcadm.sh`?"
+    options:
+      - id: a
+        text: "The administrator user."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "The resource server."
+        explanation: "Correct. The owner is a user only when the resource server registers it for a user."
+      - id: c
+        text: "The realm `master`."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "Nobody; the field is empty."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. The owner is a user only when the resource server registers it for a user."
+
+  - id: ats091-010-q24
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Describe a type"
+    source_readings:
+      - sections/section-010/module-03/course-02-types-and-resource-type-permissions.md
+    prompt: "What does Keycloak do with the `type` text of a resource?"
+    options:
+      - id: a
+        text: "It checks that it is a valid URN."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "It looks up the type in the realm."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "It ignores it in decisions."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "It compares it as exact text."
+        explanation: "Correct. `parcel` and `parcels` are different types."
+    correct_option: d
+    explanation: "Correct. `parcel` and `parcels` are different types."
+
+  - id: ats091-010-q25
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Find the cause of a miss"
+    source_readings:
+      - sections/section-010/module-03/course-02-types-and-resource-type-permissions.md
+    prompt: "A permission for the type `shelf` covers two shelves and misses a third. What is the likeliest cause?"
+    options:
+      - id: a
+        text: "The policy of the permission is a role policy."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "The third resource has no type or another type."
+        explanation: "Correct. The permission finds resources by type."
+      - id: c
+        text: "The third resource has no scopes."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "The decision strategy is `UNANIMOUS`."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. The permission finds resources by type."
+
+  - id: ats091-010-q26
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Choose the right fix"
+    source_readings:
+      - sections/section-010/module-03/course-02-types-and-resource-type-permissions.md
+    prompt: "Which fix keeps the model small when a new resource lacks the type?"
+    options:
+      - id: a
+        text: "Create a permission for the name of the resource."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "Set the enforcement mode to `PERMISSIVE`."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "Add the user to a group."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "Set the type on the resource."
+        explanation: "Correct. Fix the resource, not the permission."
+    correct_option: d
+    explanation: "Correct. Fix the resource, not the permission."
+
+  - id: ats091-010-q27
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Read a resource-based permission"
+    source_readings:
+      - sections/section-010/module-03/course-03-resource-permissions-and-scope-permissions.md
+    prompt: "A resource-based permission names a resource and no scopes. What does a user who passes its policies get?"
+    options:
+      - id: a
+        text: "Only the scope `view`."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "Every scope of the resource."
+        explanation: "Correct. Without scopes, the permission does not distinguish actions."
+      - id: c
+        text: "No scope until a scope permission exists."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "Only the scopes the user asked for in the past."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. Without scopes, the permission does not distinguish actions."
+
+  - id: ats091-010-q28
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Choose the permission kind"
+    source_readings:
+      - sections/section-010/module-03/course-03-resource-permissions-and-scope-permissions.md
+    prompt: "An API has `view`, `edit` and `delete`, and viewers may only view. Which permission is the safe choice?"
+    options:
+      - id: a
+        text: "A resource-based permission with the viewer policy."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "A permission with the decision strategy `AFFIRMATIVE`."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "A resource-based permission with logic `NEGATIVE`."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "A scope-based permission that names `view`."
+        explanation: "Correct. A scope that no permission names is denied."
+    correct_option: d
+    explanation: "Correct. A scope that no permission names is denied."
+
+  - id: ats091-010-q29
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Understand the owner rule"
+    source_readings:
+      - sections/section-010/module-03/course-04-owners-and-owner-managed-access.md
+    prompt: "Why is the owner of a resource granted with no permission?"
+    options:
+      - id: a
+        text: "The owner has the role `inventory-manager`."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "The owner of a resource always has access to it."
+        explanation: "Correct. Other users need a permission or a grant."
+      - id: c
+        text: "The enforcement mode is `PERMISSIVE` for owners."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "The owner has a permission ticket."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. Other users need a permission or a grant."
+
+  - id: ats091-010-q30
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Know what ownerManagedAccess does"
+    source_readings:
+      - sections/section-010/module-03/course-04-owners-and-owner-managed-access.md
+    prompt: "What does `ownerManagedAccess` set to `true` allow?"
+    options:
+      - id: a
+        text: "Every user can read the resource."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "The resource ignores all permissions."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "The resource server cannot change the resource."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "The owner can share the resource with other users."
+        explanation: "Correct. Sharing also needs the realm setting User-managed access."
+    correct_option: d
+    explanation: "Correct. Sharing also needs the realm setting User-managed access."

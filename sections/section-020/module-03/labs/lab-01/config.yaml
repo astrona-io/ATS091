@@ -1,0 +1,52 @@
+# Allow Only One Client To Export
+# Astrona graded lab. Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-091-lab-020-03"
+  docs:
+    guide: "solution.md"
+    solution: "solution.md"
+    question: "question.md"
+    examQuestion: "question.md"
+    prerequisites: "prerequisites.md"
+bootstrap:
+  init:
+    - name: "deploy-keycloak"
+      description: "Deploys Keycloak 26.8.1 and the tester pod, and creates the inventory realm, users, roles, group and clients"
+      type: "file"
+      source: "bootstrap/01-deploy-keycloak.sh"
+    - name: "ats-091-lab-020-03-setup"
+      description: "Builds the model, the client billing-cli and the unprotected resource invoices"
+      type: "file"
+      source: "bootstrap/02-seed-state.sh"
+testing:
+  init:
+    - name: "wait-for-keycloak"
+      description: "Waits until Keycloak answers and kcadm.sh can sign in"
+      type: "file"
+      source: "testing/wait-for-keycloak.sh"
+    - name: "reference-solution"
+      description: "Creates the client policy and the scope permission; used by `astrona test`"
+      type: "file"
+      source: "solution/apply.sh"
+validation:
+  scripts:
+    - name: "validate-export-by-client"
+      description: "Confirms alice may export from billing-cli and not from inventory-cli"
+      type: "file"
+      source: "validation/validate-export-by-client.sh"
+    - name: "validate-client-policy"
+      description: "Confirms a client policy for billing-cli protects invoices"
+      type: "file"
+      source: "validation/validate-client-policy.sh"
+    - name: "validate-original-permissions"
+      description: "Confirms the original permissions still decide the same way"
+      type: "file"
+      source: "validation/validate-original-permissions.sh"
+teardown:
+  keepCluster: false
+runtime:
+  kind:
+    preloadImages:
+      - nicolaka/netshoot:v0.13
+      - quay.io/keycloak/keycloak:26.8.1

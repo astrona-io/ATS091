@@ -16,7 +16,7 @@ This section covers the two sides. First the protocol: User-Managed Access (UMA)
 
 ## The learning path
 
-The section has one module. It has a landing page, three short parts, a graded lab right after the part it tests, and a summary. The module also has its own playground, and the landing page starts it for you.
+The section has two modules. It has a landing page, three short parts, a graded lab right after the part it tests, and a summary. The module also has its own playground, and the landing page starts it for you.
 
 ### 1. Enforce Decisions In An API With UMA 2.0
 
@@ -26,6 +26,16 @@ The playground holds Keycloak with the realm `inventory`, the full authorization
 2. User-Managed Access And Sharing
 3. A Policy Enforcement Point In An API, followed by the lab **Make The API Refuse Deletes For Viewers**
 4. Summary
+
+### 2. Manage Resources With The Protection API
+
+The playground holds Keycloak with the realm `inventory`, user-managed access switched on and the full authorization model on `inventory-api`.
+
+1. Register, Read And Delete Resources
+2. Find Resources With Query Parameters
+3. Read And Revoke Sharing, followed by the lab **Register A Resource And Revoke One Scope**
+4. Configure The Policy Enforcer
+5. Summary
 
 ## Section capstone: Make The Inventory API Enforce Its Rules
 
