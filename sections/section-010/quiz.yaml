@@ -243,3 +243,233 @@ questions:
         explanation: "Not correct. Token issuing is not affected."
     correct_option: b
     explanation: "Correct. The unprotected part of the model opens for everyone."
+
+  - id: ats091-010-q11
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Name the policy enforcement point"
+    source_readings:
+      - sections/section-010/module-02/course-01-the-four-components-of-the-architecture.md
+    prompt: "In the Keycloak authorization architecture, which component is the policy enforcement point?"
+    options:
+      - id: a
+        text: "The Keycloak service that evaluates the policies."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "The Admin Console page where permissions are written."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "The user store that supplies roles to the policies."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "The code in the API that asks for a decision and then allows or refuses the request."
+        explanation: "Correct. The API enforces the decision. Keycloak only decides."
+    correct_option: d
+    explanation: "Correct. The API enforces the decision. Keycloak only decides."
+
+  - id: ats091-010-q12
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Name the policy decision point"
+    source_readings:
+      - sections/section-010/module-02/course-01-the-four-components-of-the-architecture.md
+    prompt: "Which component evaluates policies and answers grant or deny?"
+    options:
+      - id: a
+        text: "The API, called the policy enforcement point."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "The Keycloak service, called the policy decision point."
+        explanation: "Correct. The decision point evaluates the policies for each request."
+      - id: c
+        text: "The Admin Console, called the policy administration point."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "The token, called the policy information point."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. The decision point evaluates the policies for each request."
+
+  - id: ats091-010-q13
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain why a decision can change without a policy change"
+    source_readings:
+      - sections/section-010/module-02/course-01-the-four-components-of-the-architecture.md
+    prompt: "A policy was not edited, but a decision for `bob` changed from `403` to `200`. What is the most likely cause?"
+    options:
+      - id: a
+        text: "Keycloak edited the policy by itself."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "The policy enforcement point cached the old policy."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "The scope was renamed in the token."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "A fact the policy reads changed, for example `bob` received a role."
+        explanation: "Correct. The information point supplies the facts, so changed facts can change a decision."
+    correct_option: d
+    explanation: "Correct. The information point supplies the facts, so changed facts can change a decision."
+
+  - id: ats091-010-q14
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Describe the effect of the ENFORCING mode"
+    source_readings:
+      - sections/section-010/module-02/course-02-resource-server-settings.md
+    prompt: "A request asks for a scope that no permission protects. What does the mode `ENFORCING` do?"
+    options:
+      - id: a
+        text: "It grants the request."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "It denies the request."
+        explanation: "Correct. `ENFORCING` is the only mode that fails closed."
+      - id: c
+        text: "It grants the request only for administrators."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "It skips the request and returns no answer."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. `ENFORCING` is the only mode that fails closed."
+
+  - id: ats091-010-q15
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Describe the DISABLED mode"
+    source_readings:
+      - sections/section-010/module-02/course-02-resource-server-settings.md
+    prompt: "What does the policy enforcement mode `DISABLED` do?"
+    options:
+      - id: a
+        text: "It denies every request without evaluating any policy."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "It evaluates policies but ignores permissions."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "It turns off the resource server client."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "It grants every request without evaluating any policy."
+        explanation: "Correct. `DISABLED` skips evaluation completely, so even a permission that would deny does not run."
+    correct_option: d
+    explanation: "Correct. `DISABLED` skips evaluation completely, so even a permission that would deny does not run."
+
+  - id: ats091-010-q16
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Map an Admin Console tab to an Admin REST API path"
+    source_readings:
+      - sections/section-010/module-02/course-03-the-admin-console-and-the-admin-rest-api.md
+    prompt: "Which path under `clients/<id>/authz/resource-server` returns the settings export?"
+    options:
+      - id: a
+        text: "export"
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "settings"
+        explanation: "Correct. The Export tab calls the `settings` path."
+      - id: c
+        text: "policy/export"
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "resource/settings"
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. The Export tab calls the `settings` path."
+
+  - id: ats091-010-q17
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Find which permissions use a policy"
+    source_readings:
+      - sections/section-010/module-02/course-03-the-admin-console-and-the-admin-rest-api.md
+    prompt: "Which sub-path of a policy lists the permissions that use it?"
+    options:
+      - id: a
+        text: "associatedPolicies"
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "resources"
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "scopes"
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "dependentPolicies"
+        explanation: "Correct. `dependentPolicies` answers which permissions use the policy. `associatedPolicies` answers the opposite question."
+    correct_option: d
+    explanation: "Correct. `dependentPolicies` answers which permissions use the policy. `associatedPolicies` answers the opposite question."
+
+  - id: ats091-010-q18
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain how objects refer to each other in the settings file"
+    source_readings:
+      - sections/section-010/module-02/course-04-export-and-read-the-settings-file.md
+    prompt: "How do objects in the exported settings file refer to each other?"
+    options:
+      - id: a
+        text: "By a Keycloak internal id that works in any server."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "By name, so the file can load into another server."
+        explanation: "Correct. Names are portable between servers. Ids are not."
+      - id: c
+        text: "By position in the list only."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "By the client secret of the resource server."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. Names are portable between servers. Ids are not."
+
+  - id: ats091-010-q19
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Prepare a target before an import"
+    source_readings:
+      - sections/section-010/module-02/course-05-import-settings-into-another-resource-server.md
+    prompt: "Why can an import into a freshly enabled resource server clash?"
+    options:
+      - id: a
+        text: "The import needs the realm to be in PERMISSIVE mode."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "The import deletes the target client."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: c
+        text: "The file always contains the users of the source realm."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "The server holds default objects whose names repeat in the file."
+        explanation: "Correct. Delete the default objects of the target first, the permission and policy before the resource."
+    correct_option: d
+    explanation: "Correct. Delete the default objects of the target first, the permission and policy before the resource."
+
+  - id: ats091-010-q20
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Prove that an import made a faithful copy"
+    source_readings:
+      - sections/section-010/module-02/course-05-import-settings-into-another-resource-server.md
+    prompt: "After an import, how do you prove that the copy decides like the source?"
+    options:
+      - id: a
+        text: "Compare the client secrets of both servers."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: b
+        text: "Ask both servers the same decision requests with the right `audience` and compare the answers."
+        explanation: "Correct. A copy is faithful when the same questions give the same answers."
+      - id: c
+        text: "Check that both exports have the same file size."
+        explanation: "Not correct. This is not what the part teaches."
+      - id: d
+        text: "Check that the target has the same number of users."
+        explanation: "Not correct. This is not what the part teaches."
+    correct_option: b
+    explanation: "Correct. A copy is faithful when the same questions give the same answers."

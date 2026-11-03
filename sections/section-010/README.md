@@ -18,7 +18,7 @@ Keycloak Authorization Services keeps those rules in one place. The API, called 
 
 ## The learning path
 
-The section has one module. It has a landing page, three short parts, a graded lab right after the part it tests, and a summary. The module also has its own playground, a cluster where you can explore freely, and the landing page starts it for you.
+The section has two modules. Each has a landing page, short parts, a graded lab right after the part it tests, and a summary. Each module also has its own playground, a cluster where you can explore freely, and the landing page starts it for you.
 
 ### 1. Protect An API With Keycloak Authorization Services
 
@@ -28,6 +28,17 @@ The playground holds Keycloak with the realm `inventory`, the users `alice` (a v
 2. Resources, Scopes And Permissions, followed by the lab **Model The Inventory API As A Resource Server**
 3. Decision Strategies And The Enforcement Mode
 4. Summary
+
+### 2. Know The Architecture And Manage Resource Server Settings
+
+The playground holds the finished model on `inventory-api` and a second resource server, `inventory-api-v2`, with no model.
+
+1. The Four Components Of The Architecture
+2. Resource Server Settings
+3. The Admin Console And The Admin REST API
+4. Export And Read The Settings File
+5. Import Settings Into Another Resource Server, followed by the lab **Copy A Resource Server With Export And Import**
+6. Summary
 
 ## Section capstone: Close A Resource Server That Allows Too Much
 

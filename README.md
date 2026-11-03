@@ -24,7 +24,7 @@ contains:
 
 | Section | Title | Modules | Labs | Topic |
 | --- | --- | --- | --- | --- |
-| [010](sections/section-010) | The Authorization Services Model | 1 | 1 + capstone | Resource servers, resources, scopes, permissions |
+| [010](sections/section-010) | The Authorization Services Model | 2 | 2 + capstone | Resource servers, resources, scopes, permissions |
 | [020](sections/section-020) | Policies And Decisions | 1 | 1 + capstone | Policy types and decision requests |
 | [030](sections/section-030) | UMA 2.0 And Policy Enforcement | 1 | 1 + capstone | UMA, the RPT and an enforcing API |
 
@@ -39,6 +39,7 @@ Section 030 follows the decision into an API that enforces it, through UMA 2.0.
 | Module | Reader | Parts | Labs |
 | --- | --- | --- | --- |
 | 010-01 | [Protect An API With Keycloak Authorization Services](sections/section-010/module-01/course.md) | 3 | [lab-01](sections/section-010/module-01/labs/lab-01) |
+| 010-02 | [Know The Architecture And Manage Resource Server Settings](sections/section-010/module-02/course.md) | 5 | [lab-01](sections/section-010/module-02/labs/lab-01) |
 | 020-01 | [Write Policies That Decide Access](sections/section-020/module-01/course.md) | 4 | [lab-01](sections/section-020/module-01/labs/lab-01) |
 | 030-01 | [Enforce Decisions In An API With UMA 2.0](sections/section-030/module-01/course.md) | 3 | [lab-01](sections/section-030/module-01/labs/lab-01) |
 
