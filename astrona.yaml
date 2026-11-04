@@ -13,7 +13,7 @@
 training:
   id: ATS091
   title: "Keycloak: Fine-Grained Authorization Services"
-  maturity: draft
+  maturity: alpha
   description: >
     Training material covering the Fine-Grained Authorization Services domain
     of the Keycloak training path: why roles in a token are not enough,
